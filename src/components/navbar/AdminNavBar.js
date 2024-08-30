@@ -3,28 +3,28 @@ import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Dropdown, Button } fro
 import { FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export default function SuperAdminNavBar() {
+export default function AdminNavBar() {
 
     const navigate = useNavigate();
 
     const dashboard = () => {
-        navigate('/superadmin/dashboard');
+        navigate('/admin/dashboard');
     }
 
     const employees = () => {
-        navigate('/superadmin/employees');
+        navigate('/admin/employees');
+    }
+
+    const attendance = () => {
+        navigate('/admin/attendances');
     }
 
     const salaries = () => {
-        navigate('/superadmin/salaries');
+        navigate('/admin/salaries');
     }
 
-    const admins = () => {
-        navigate('/superadmin/admins');
-    }
-
-    const departments = () => {
-        navigate('/superadmin/departments');
+    const analysis = () => {
+        navigate('/admin/analysis');
     }
 
     // const months = () => {
@@ -34,19 +34,19 @@ export default function SuperAdminNavBar() {
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-        navigate('/superadmin/signin');
+        navigate('/admin/signin');
     }
 
     const gotoSignIn = () => {
-        navigate('/superadmin/signin');
+        navigate('/admin/signin');
     }
 
     const gotoSignUp = () => {
-        navigate('/superadmin/signup');
+        navigate('/admin/signup');
     }
 
     const gotoProfile = () => {
-        navigate('/superadmin/profile');
+        navigate('/admin/profile');
     }
 
     // const isSignedIn = !!localStorage.getItem('token');
@@ -62,18 +62,18 @@ export default function SuperAdminNavBar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mx-auto">
                         <Nav.Link href="" onClick={dashboard} style={{ color: 'white', marginRight: '30px' }}>Dashboard</Nav.Link>
-                        <Nav.Link href="" onClick={departments} style={{ color: 'white', marginRight: '30px' }}>Departments</Nav.Link>
-                        {/* <Nav.Link href="" onClick={months} style={{ color: 'white', marginRight: '30px' }}>Months</Nav.Link> */}
                         <Nav.Link href="" onClick={employees} style={{ color: 'white', marginRight: '30px' }}>Employees</Nav.Link>
+                        {/* <Nav.Link href="" onClick={months} style={{ color: 'white', marginRight: '30px' }}>Months</Nav.Link> */}
+                        <Nav.Link href="" onClick={attendance} style={{ color: 'white', marginRight: '30px' }}>Attendance</Nav.Link>
                         <Nav.Link href="" onClick={salaries} style={{ color: 'white', marginRight: '30px' }}>Salaries</Nav.Link>
-                        <Nav.Link href="" onClick={admins} style={{ color: 'white', marginRight: '30px' }}>Admins</Nav.Link>
+                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>Analysis</Nav.Link>
                     </Nav>
                     <Nav>
                         {isSignedIn ? (
                             <Dropdown align="end">
                                 <OverlayTrigger
                                     placement="bottom"
-                                    overlay={<Tooltip id="tooltip-bottom">Super Admin settings</Tooltip>}
+                                    overlay={<Tooltip id="tooltip-bottom">Admin settings</Tooltip>}
                                 >
                                     <Dropdown.Toggle as="div" style={{ color: 'white', display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                                         <FaUserCircle size={30} />

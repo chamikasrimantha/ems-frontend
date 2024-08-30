@@ -14,6 +14,14 @@ import SuperAdminAddSuperAdmins from './pages/superadmin/superadmin.admins/Super
 import SuperAdminAdmins from './pages/superadmin/superadmin.admins/SuperAdminAdmins';
 import SuperAdminViewAll from './pages/superadmin/superadmin.admins/SuperAdminViewAll';
 import SuperAdminGetEmployeesByDepartment from './pages/superadmin/superadmin.employees/SuperAdminGetEmployeesByDepartment';
+import AdminDashboard from './pages/admin/admin.dashboard/AdminDashboard';
+import AdminEmployees from './pages/admin/admin.employees/AdminEmployees';
+import AdminGetEmployeesByDepartment from './pages/admin/admin.employees/AdminGetEmployeesByDepartment';
+import AdminViewEmployee from './pages/admin/admin.employees/AdminViewEmployee';
+import AdminUploadAttendance from './pages/admin/admin.attendance/AdminUploadAttendance';
+import AdminGetAttendancesByEmployee from './pages/admin/admin.attendance/AdminGetAttendancesByEmployee';
+import AdminSalaries from './pages/admin/admin.salaries/AdminSalaries';
+import AdminAddSalary from './pages/admin/admin.salaries/AdminAddSalary';
 
 function App() {
   return (
@@ -36,6 +44,15 @@ function App() {
           <Route path='/superadmin/admins/:id' element={<SuperAdminViewAll />} />
 
           <Route path='/admin/signin' element={<AdminSignIn />} />
+
+          <Route path='/admin/dashboard' element={<AdminDashboard />} />
+          <Route path='/admin/employees' element={<AdminEmployees />} />
+          <Route path='/admin/employees-by-department' element={<AdminGetEmployeesByDepartment />} />
+          <Route path='/admin/employees/:id' element={<AdminViewEmployee />} />
+          <Route path='/admin/attendances' element={<AdminUploadAttendance />} />
+          <Route path='/admin/attendance-by-employee' element={<AdminGetAttendancesByEmployee />} />
+          <Route path='/admin/salaries' element={<AdminSalaries />} />
+          <Route path='/admin/create-salary' element={<AdminAddSalary />} />
 
         </Routes>
       </BrowserRouter>

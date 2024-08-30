@@ -32,18 +32,18 @@ const DepartmentCard = ({ department, onEdit, onDelete }) => {
         <Typography variant="body1" style={descriptionStyle}>
           {department.description}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          style={{ marginTop: '12px', marginRight: '10px' }} 
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: '12px', marginRight: '10px' }}
           onClick={onEdit} // Trigger edit action
         >
           Update
         </Button>
-        <Button 
-          variant="contained" 
-          color="secondary" 
-          style={{ marginTop: '12px' }} 
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{ marginTop: '12px' }}
           onClick={onDelete} // Trigger delete action
         >
           Delete

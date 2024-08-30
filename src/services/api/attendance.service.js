@@ -69,7 +69,7 @@ export const getAttendancesByDateRange = async (startDate, endDate) => {
             `${process.env.REACT_APP_BACKEND_BASE_URL}/attendance/range`, 
             { 
                 params: { 
-                    startDate: startDate, 
+                    startDate: startDate,
                     endDate: endDate 
                 } 
             }

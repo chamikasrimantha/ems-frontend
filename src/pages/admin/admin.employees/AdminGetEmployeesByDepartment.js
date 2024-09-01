@@ -121,7 +121,7 @@ export default function AdminGetEmployeesByDepartment() {
                                     <td>{employee.email}</td>
                                     <td>{employee.mobile}</td>
                                     <td>
-                                        <Link to={`/superadmin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
+                                        <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                             <Button variant="primary">View</Button>
                                         </Link>
                                     </td>

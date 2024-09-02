@@ -160,16 +160,27 @@ export default function AdminAddSalary() {
         setSalaryDetails(calculatedData);
     };
 
-    const addSalary = async (event) => {
-        event.preventDefault();
+    // const addSalary = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         for (const salary of salaryDetails) {
+    //             await saveSalary(salary);
+    //         }
+    //         alert("Salaries added successfully!");
+    //     } catch (error) {
+    //         console.error("Error while adding salaries", error);
+    //         alert("Error while adding salaries");
+    //     }
+    // };
+
+    const addSalary = async (index) => {
         try {
-            for (const salary of salaryDetails) {
-                await saveSalary(salary);
-            }
-            alert("Salaries added successfully!");
+            const salary = salaryDetails[index];
+            await saveSalary(salary);
+            alert(`Salary for ${salary.firstname} ${salary.lastname} added successfully!`);
         } catch (error) {
-            console.error("Error while adding salaries", error);
-            alert("Error while adding salaries");
+            console.error("Error while adding salary", error);
+            alert("Error while adding salary");
         }
     };
 
@@ -325,6 +336,7 @@ export default function AdminAddSalary() {
                                                     <th>20% EPF</th>
                                                     <th>50% On Basic</th>
                                                     <th>Total Salary</th>
+                                                    <th>#</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -402,13 +414,14 @@ export default function AdminAddSalary() {
                                                         <td>{parseFloat(details.twentyPresentEpf).toFixed(2)}</td>
                                                         <td>{parseFloat(details.fiftyPresentOnBasic).toFixed(2)}</td>
                                                         <td>{parseFloat(details.totalSalary).toFixed(2)}</td>
+                                                        <td><Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={() => addSalary(index)}>Save Salary</Button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </Table>
                                     )}
 
-                                    <Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={addSalary}>Save Salaries</Button>
+                                    
                                 </Form>
                             </div>
                         </Col>

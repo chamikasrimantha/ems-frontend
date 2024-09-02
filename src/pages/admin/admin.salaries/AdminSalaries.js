@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getAllSalaries, getSalariesByMonth } from '../../../services/api/salary.service';
 import { getAllMonths } from '../../../services/api/month.service';
 import { getEmployeesByDepartments } from '../../../services/api/employee.service';
+import { getAllDepartments } from '../../../services/api/department.service';
 import AdminNavBar from '../../../components/navbar/AdminNavBar';
 import Footer from '../../../components/footer/Footer';
 import { Col, Container, Row, Form, Table } from 'react-bootstrap';
@@ -17,6 +18,9 @@ export default function AdminSalaries() {
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedMonthName, setSelectedMonthName] = useState('');
     const [salaries, setSalaries] = useState([]);
+    const [departments, setDepartments] = useState([]);
+    const [selectedDepartment, setSelectedDepartment] = useState('');
+    const [employees, setEmployees] = useState([]);
     const navigate = useNavigate();
 
     const printRef = useRef();
@@ -32,6 +36,7 @@ export default function AdminSalaries() {
 
     useEffect(() => {
         fetchAllMonths();
+        fetchAllDepartments();
     }, []);
 
     const fetchAllMonths = async () => {
@@ -39,13 +44,34 @@ export default function AdminSalaries() {
         setMonths(response.data);
     };
 
-    const handleMonthChange = async (e) => {
+    const fetchAllDepartments = async () => {
+        const response = await getAllDepartments();
+        setDepartments(response.data);
+    };
+
+    const fetchSalariesByMonthAndDepartment = async () => {
+        if (selectedMonth && selectedDepartment) {
+            const salaryResponse = await getSalariesByMonth(selectedMonth);
+            const employeeResponse = await getEmployeesByDepartments(selectedDepartment);
+            filterSalariesByDepartment(salaryResponse.data, employeeResponse.data);
+        }
+    };
+
+    const handleMonthChange = (e) => {
         const monthId = e.target.value;
         setSelectedMonth(monthId);
         const selectedMonthObj = months.find(month => month.id.toString() === monthId);
         setSelectedMonthName(selectedMonthObj ? selectedMonthObj.name : '');
-        const response = await getSalariesByMonth(monthId);
-        setSalaries(response.data);
+    };
+
+    const handleDepartmentChange = (e) => {
+        setSelectedDepartment(e.target.value);
+    };
+
+    const filterSalariesByDepartment = (monthSalaries, employeesList) => {
+        const employeeIds = employeesList.map(emp => emp.id);
+        const filteredSalaries = monthSalaries.filter(salary => employeeIds.includes(salary.employeeEntity.id));
+        setSalaries(filteredSalaries);
     };
 
     const gotoCreate = () => {
@@ -91,11 +117,13 @@ export default function AdminSalaries() {
                     <Row className="justify-content-center mt-3">
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
                             <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month</h4>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month and Department</h4>
+                                <p style={{ fontSize: '1rem' }}>Please select month & department and then click on 'Load' button to get salary details.</p>
                                 <Form.Control
                                     as="select"
                                     value={selectedMonth}
                                     onChange={handleMonthChange}
+                                    className="mb-3"
                                 >
                                     <option value="">Select a month</option>
                                     {months.map(month => (
@@ -104,6 +132,28 @@ export default function AdminSalaries() {
                                         </option>
                                     ))}
                                 </Form.Control>
+                                <Form.Control
+                                    as="select"
+                                    value={selectedDepartment}
+                                    onChange={handleDepartmentChange}
+                                >
+                                    <option value="">Select a department</option>
+                                    {departments.map(department => (
+                                        <option key={department.id} value={department.id}>
+                                            {department.name}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={fetchSalariesByMonthAndDepartment}
+                                        className="mt-3"
+                                    >
+                                        Load
+                                    </Button>
+                                </Box>
                             </div>
                         </Col>
                     </Row>
@@ -112,6 +162,7 @@ export default function AdminSalaries() {
                         <Col md={12} style={{ width: isMobile ? '100%' : '80%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary Sheet</h4>
+                                <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName}</p>
                                 <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.75rem' }}>
                                     <thead>
                                         <tr>
@@ -151,7 +202,7 @@ export default function AdminSalaries() {
                                                 <td>{parseFloat(salary.budgetaryReliefAllowance).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.noPay).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.totalForEpf).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.normalOverTime).toFixed(2)}</td>
+                                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.doubleOverTime).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.grossSalary).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
@@ -170,22 +221,38 @@ export default function AdminSalaries() {
                                         ))}
                                     </tbody>
                                 </Table>
-                                <br />
                                 <ReactToPrint
-                                    trigger={() => <Button variant="contained" color="primary">Print</Button>}
+                                    trigger={() => <Button className="mt-3" variant="contained" color="primary">Print</Button>}
                                     content={() => printRef.current}
                                     pageStyle="@media print { @page { size: landscape; } body { margin: 0; } }"
                                 />
+                                {/* <ReactToPrint
+                                    trigger={() => (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className="mt-3"
+                                        >
+                                            Print Salary Sheet
+                                        </Button>
+                                    )}
+                                    content={() => printRef.current}
+                                /> */}
+                                <div style={{ display: 'none' }}>
+                                    <SalarySheetPrint
+                                        ref={printRef}
+                                        salaries={salaries}
+                                        monthName={selectedMonthName}
+                                        departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''}
+                                    />
+                                </div>
                             </div>
                         </Col>
                     </Row>
                 </Container>
             </div>
-            <br /><br /><br />
+
             <Footer />
-            <div style={{ display: 'none' }}>
-                <SalarySheetPrint ref={printRef} salaries={salaries} selectedMonthName={selectedMonthName} />
-            </div>
         </div>
     );
 }

@@ -3,9 +3,10 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-const SalarySheetPrint = React.forwardRef(({ salaries, selectedMonthName }, ref) => (
+const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName }, ref) => (
     <div ref={ref} style={{ width: '100%', padding: '10px' }}>
-        <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd - Salary Sheet {selectedMonthName}</h4>
+        <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd</h4>
+        <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary Sheet {monthName}</h4>
         <Table striped bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
             <thead>
                 <tr>
@@ -45,7 +46,7 @@ const SalarySheetPrint = React.forwardRef(({ salaries, selectedMonthName }, ref)
                         <td>{parseFloat(salary.budgetaryReliefAllowance).toFixed(2)}</td>
                         <td>{parseFloat(salary.noPay).toFixed(2)}</td>
                         <td>{parseFloat(salary.totalForEpf).toFixed(2)}</td>
-                        <td>{parseFloat(salary.normalOverTime).toFixed(2)}</td>
+                        <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
                         <td>{parseFloat(salary.doubleOverTime).toFixed(2)}</td>
                         <td>{parseFloat(salary.grossSalary).toFixed(2)}</td>
                         <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>

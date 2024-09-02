@@ -25,6 +25,7 @@ export default function Footer() {
                 <a href="#cookies" style={{ color: 'white', textDecoration: 'none' }}>Cookies</a>
             </div>
             <p style={{ textAlign: 'center', fontSize: '12px' }}>Copyright © EMS - Benjarong Pvt Ltd. All rights reserved.</p>
+            <p style={{ textAlign: 'center', fontSize: '12px' }}>Designed and Developed by <a style={{ color: 'white', textDecoration: 'none' }} href='https://chamika-srimantha.live'>Chamika Srimantha</a></p>
         </div>
     )
 }

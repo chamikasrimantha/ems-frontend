@@ -43,16 +43,18 @@ export default function AdminAddSalary() {
         const staffLoan = parseFloat(updatedSalaryDetails[index].staffLoan) || 0;
         const staffDebtors = parseFloat(updatedSalaryDetails[index].staffDebtors) || 0;
         const salaryAdvance = parseFloat(updatedSalaryDetails[index].salaryAdvance) || 0;
+        const doubleOverTime = parseFloat(updatedSalaryDetails[index].doubleOverTime) || 0;
 
         const noPay = ((basicSalary + budgetaryReliefAllowance) / 30) * noPayDays;
-        const grossSalary = (basicSalary + budgetaryReliefAllowance) - noPay;
-        const normalOverTimeCash = ((grossSalary / 240) * normalOverTime) * 1.5;
+        const totalForEpf = (basicSalary + budgetaryReliefAllowance) - noPay;
+        const normalOverTimeCash = (((basicSalary + budgetaryReliefAllowance) / 240) * normalOverTime) * 1.5;
+        const grossSalary = (totalForEpf + normalOverTimeCash) + doubleOverTime;
 
         const employeeType = updatedSalaryDetails[index].type;
-        const eightPresentEpf = employeeType === 'PERMANENT' ? grossSalary * 0.08 : '0';
-        const twelvePresentEpf = employeeType === 'PERMANENT' ? grossSalary * 0.12 : '0';
-        const threePresentEtf = employeeType === 'PERMANENT' ? grossSalary * 0.03 : '0';
-        const twentyPresentEpf = employeeType === 'PERMANENT' ? grossSalary * 0.2 : '0';
+        const eightPresentEpf = employeeType === 'PERMANENT' ? totalForEpf * 0.08 : 0.00;
+        const twelvePresentEpf = employeeType === 'PERMANENT' ? totalForEpf * 0.12 : '0';
+        const threePresentEtf = employeeType === 'PERMANENT' ? totalForEpf * 0.03 : '0';
+        const twentyPresentEpf = employeeType === 'PERMANENT' ? totalForEpf * 0.2 : '0';
         const fiftyPresentOnBasic = basicSalary * 0.50;
         const totalDetuction = (
             eightPresentEpf +
@@ -68,7 +70,7 @@ export default function AdminAddSalary() {
             ...updatedSalaryDetails[index],
             noPay: noPay.toFixed(2),
             grossSalary: grossSalary.toFixed(2),
-            totalForEpf: grossSalary.toFixed(2),
+            totalForEpf: totalForEpf.toFixed(2),
             normalOverTimeCash: normalOverTimeCash.toFixed(2),
             eightPresentEpf: eightPresentEpf,
             totalDetuction: totalDetuction,
@@ -100,19 +102,21 @@ export default function AdminAddSalary() {
                 const staffLoan = 0;  // This will be updated by handleInputChange
                 const staffDebtors = 0;  // This will be updated by handleInputChange
                 const salaryAdvance = 0;  // This will be updated by handleInputChange
+                const doubleOverTime = 0;
 
                 const noPay = ((basicSalary + budgetaryReliefAllowance) / 30) * noPayDays;
-                const grossSalary = (basicSalary + budgetaryReliefAllowance) - noPay;
-                const totalForEpf = grossSalary;
+                const totalForEpf = (basicSalary + budgetaryReliefAllowance) - noPay;
 
                 const totalHoursWorked = attendances.reduce((acc, attendance) => acc + (attendance.hoursWorked || 0), 0);
                 const normalOverTimeHours = Math.max(0, totalHoursWorked - 240);
-                const normalOverTimeCash = (grossSalary / 240) * normalOverTimeHours * 1.5;
+                const normalOverTimeCash = ((basicSalary + budgetaryReliefAllowance) / 240) * normalOverTimeHours * 1.5;
 
-                const eightPresentEpf = employee.type === 'PERMANENT' ? grossSalary * 0.08 : '0';
-                const twelvePresentEpf = employee.type === 'PERMANENT' ? grossSalary * 0.12 : '0';
-                const threePresentEtf = employee.type === 'PERMANENT' ? grossSalary * 0.03 : '0';
-                const twentyPresentEpf = employee.type === 'PERMANENT' ? grossSalary * 0.2 : '0';
+                const grossSalary = (totalForEpf + normalOverTimeCash) + doubleOverTime;;
+
+                const eightPresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.08 : '0';
+                const twelvePresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.12 : '0';
+                const threePresentEtf = employee.type === 'PERMANENT' ? totalForEpf * 0.03 : '0';
+                const twentyPresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.2 : '0';
                 const totalDetuction = (
                     eightPresentEpf +
                     cashFloat +

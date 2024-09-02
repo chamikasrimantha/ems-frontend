@@ -228,7 +228,7 @@ export default function AdminAddSalary() {
             <div className="mt-4">
                 <Container fluid>
                     <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary card</h4>
                             </div>
@@ -240,7 +240,7 @@ export default function AdminAddSalary() {
             <div className="mt-1">
                 <Container fluid>
                     <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <p style={{ fontSize: '1rem' }}>Click 'ADD' to create a new month if not existed.</p>
                                 <Box>
@@ -266,7 +266,7 @@ export default function AdminAddSalary() {
             <div className="mt-1">
                 <Container fluid>
                     <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1rem' }}>Salary card</h4>
                                 <Form>

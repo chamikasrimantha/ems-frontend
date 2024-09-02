@@ -85,7 +85,7 @@ export default function AdminSalaries() {
             <div className="mt-4">
                 <Container fluid>
                     <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary details</h4>
                             </div>
@@ -97,7 +97,7 @@ export default function AdminSalaries() {
             <div className="mt-2">
                 <Container fluid>
                     <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary sheet</h4>
                                 <p style={{ fontSize: '1rem' }}>Click 'Create' to create a new salary sheet.</p>
@@ -115,7 +115,7 @@ export default function AdminSalaries() {
                     </Row>
 
                     <Row className="justify-content-center mt-3">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month and Department</h4>
                                 <p style={{ fontSize: '1rem' }}>Please select month & department and then click on 'Load' button to get salary details.</p>
@@ -159,7 +159,7 @@ export default function AdminSalaries() {
                     </Row>
 
                     <Row className="justify-content-center mt-3">
-                        <Col md={12} style={{ width: isMobile ? '100%' : '80%' }}>
+                        <Col md={12} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary Sheet</h4>
                                 <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName}</p>

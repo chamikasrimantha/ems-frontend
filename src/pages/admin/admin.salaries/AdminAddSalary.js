@@ -277,7 +277,7 @@ export default function AdminAddSalary() {
                     <Row className="justify-content-center">
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary card</h4>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary sheet</h4>
                             </div>
                         </Col>
                     </Row>

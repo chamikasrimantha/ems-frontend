@@ -3,10 +3,10 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName }, ref) => (
+const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName, type }, ref) => (
     <div ref={ref} style={{ width: '100%', padding: '10px' }}>
         <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd</h4>
-        <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary Sheet {monthName}</h4>
+        <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary Sheet {monthName} | {type} Staff</h4>
         <Table striped bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
             <thead>
                 <tr>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getAllSalaries, getSalariesByMonth } from '../../../services/api/salary.service';
+import { getAllSalaries, getSalariesByMonth, updateSalary, deleteSalary } from '../../../services/api/salary.service';
 import { getAllMonths } from '../../../services/api/month.service';
 import { getEmployeesByDepartments } from '../../../services/api/employee.service';
 import { getAllDepartments } from '../../../services/api/department.service';
@@ -21,6 +21,7 @@ export default function AdminSalaries() {
     const [departments, setDepartments] = useState([]);
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [employees, setEmployees] = useState([]);
+    const [employeeType, setEmployeeType] = useState('');
     const navigate = useNavigate();
 
     const printRef = useRef();
@@ -68,10 +69,28 @@ export default function AdminSalaries() {
         setSelectedDepartment(e.target.value);
     };
 
+    const handleEmployeeTypeChange = (e) => {
+        setEmployeeType(e.target.value); // Update state on type selection
+    };
+
     const filterSalariesByDepartment = (monthSalaries, employeesList) => {
-        const employeeIds = employeesList.map(emp => emp.id);
+        const employeeIds = employeesList.filter(emp => emp.type === employeeType).map(emp => emp.id);
         const filteredSalaries = monthSalaries.filter(salary => employeeIds.includes(salary.employeeEntity.id));
         setSalaries(filteredSalaries);
+    };
+
+    const handleDelete = async (salaryId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete?");
+        if (confirmDelete) {
+            const response = await deleteSalary(salaryId);
+            setSalaries(salaries.filter(salary => salary.id !== salaryId));
+            if (response.status === 200) {
+                alert("Salary deleted successfully");
+                navigate('/admin/salaries');
+            } else {
+                alert("Failed to delete salary");
+            }
+        }
     };
 
     const gotoCreate = () => {
@@ -82,19 +101,7 @@ export default function AdminSalaries() {
         <div>
             <AdminNavBar />
 
-            <div className="mt-4">
-                <Container fluid>
-                    <Row className="justify-content-center">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary details</h4>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-
-            <div className="mt-2">
+            <div className="mt-3">
                 <Container fluid>
                     <Row className="justify-content-center">
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
@@ -113,12 +120,19 @@ export default function AdminSalaries() {
                             </div>
                         </Col>
                     </Row>
+                    <Row className="justify-content-center">
+                        <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={squareStyle}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary details</h4>
+                            </div>
+                        </Col>
+                    </Row>
 
                     <Row className="justify-content-center mt-3">
-                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                        <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month and Department</h4>
-                                <p style={{ fontSize: '1rem' }}>Please select month & department and then click on 'Load' button to get salary details.</p>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month, Department & Type</h4>
+                                <p style={{ fontSize: '1rem' }}>Please select month, department & type and then click on 'Load' button to get salary details.</p>
                                 <Form.Control
                                     as="select"
                                     value={selectedMonth}
@@ -136,6 +150,7 @@ export default function AdminSalaries() {
                                     as="select"
                                     value={selectedDepartment}
                                     onChange={handleDepartmentChange}
+                                    className="mb-3"
                                 >
                                     <option value="">Select a department</option>
                                     {departments.map(department => (
@@ -143,6 +158,15 @@ export default function AdminSalaries() {
                                             {department.name}
                                         </option>
                                     ))}
+                                </Form.Control>
+                                <Form.Control
+                                    as="select"
+                                    value={employeeType}
+                                    onChange={handleEmployeeTypeChange}
+                                >
+                                    <option value="">Select employee type</option>
+                                    <option value="PROBATION">PROBATION</option>
+                                    <option value="PERMANENT">PERMANENT</option>
                                 </Form.Control>
                                 <Box>
                                     <Button
@@ -162,7 +186,7 @@ export default function AdminSalaries() {
                         <Col md={12} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary Sheet</h4>
-                                <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName}</p>
+                                <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName} | {employeeType} Staff</p>
                                 <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.75rem' }}>
                                     <thead>
                                         <tr>
@@ -189,6 +213,7 @@ export default function AdminSalaries() {
                                             <th>20% EPF</th>
                                             <th>50% on Basic</th>
                                             <th>Total Salary</th>
+                                            <th>#</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -217,6 +242,14 @@ export default function AdminSalaries() {
                                                 <td>{parseFloat(salary.twentyPresentEpf).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.fiftyPresentOnBasic).toFixed(2)}</td>
                                                 <td>{parseFloat(salary.totalSalary).toFixed(2)}</td>
+                                                <td><Button
+                                                    variant="contained"
+                                                    color="secondary"
+                                                    onClick={() => handleDelete(salary.id)}
+                                                    className="ml-2"
+                                                >
+                                                    Delete
+                                                </Button></td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -243,6 +276,7 @@ export default function AdminSalaries() {
                                         ref={printRef}
                                         salaries={salaries}
                                         monthName={selectedMonthName}
+                                        type={employeeType}
                                         departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''}
                                     />
                                 </div>

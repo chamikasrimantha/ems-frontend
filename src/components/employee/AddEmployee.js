@@ -24,6 +24,9 @@ export default function AddEmployee() {
     const [mobile, setMobile] = useState("");
     const [basicSalary, setBasicSalary] = useState("");
     const [budgetaryReliefAllowance, setBudgetaryReliefAllowance] = useState("");
+    const [travellingAllowance, setTravellingAllowance] = useState("");
+    const [specialAllowance, setSpecialAllowance] = useState("");
+    const [bank, setBank] = useState("");
     const [departmentId, setDepartmentId] = useState("");
 
     const [departments, setDepartments] = useState([]);
@@ -60,6 +63,9 @@ export default function AddEmployee() {
             "type": type,
             "basicSalary": basicSalary,
             "budgetaryReliefAllowance": budgetaryReliefAllowance,
+            "travellingAllowance": travellingAllowance,
+            "specialAllowance": specialAllowance,
+            "bank": bank,
             "departmentId": departmentId
         }
         const response = await addEmployee(data);
@@ -165,6 +171,9 @@ export default function AddEmployee() {
                                 <TextField value={designation} onChange={(e) => setDesignation(e.target.value)} label="Designation" variant="outlined" className="mb-3" fullWidth />
                                 <TextField value={basicSalary} onChange={(e) => setBasicSalary(e.target.value)} label="Basic salary" variant="outlined" className="mb-3" fullWidth />
                                 <TextField value={budgetaryReliefAllowance} onChange={(e) => setBudgetaryReliefAllowance(e.target.value)} label="Budgetary relief allowance" variant="outlined" className="mb-3" fullWidth />
+                                <TextField value={travellingAllowance} onChange={(e) => setTravellingAllowance(e.target.value)} label="Travelling allowance" variant="outlined" className="mb-3" fullWidth />
+                                <TextField value={specialAllowance} onChange={(e) => setSpecialAllowance(e.target.value)} label="Special allowance" variant="outlined" className="mb-3" fullWidth />
+                                <TextField value={bank} onChange={(e) => setBank(e.target.value)} label="Bank Acc No" variant="outlined" className="mb-3" fullWidth />
                             </div>
                         </Col>
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '70%' }}>

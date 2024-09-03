@@ -35,6 +35,9 @@ export default function SuperAdminViewEmployee() {
     const [mobile, setMobile] = useState("");
     const [basicSalary, setBasicSalary] = useState("");
     const [budgetaryReliefAllowance, setBudgetaryReliefAllowance] = useState("");
+    const [travellingAllowance, setTravellingAllowance] = useState("");
+    const [specialAllowance, setSpecialAllowance] = useState("");
+    const [bank, setBank] = useState("");
     const [departmentId, setDepartmentId] = useState("");
 
     const isMobile = useMediaQuery('(max-width: 600px)');
@@ -59,6 +62,9 @@ export default function SuperAdminViewEmployee() {
             setMobile(empData.mobile);
             setBasicSalary(empData.basicSalary);
             setBudgetaryReliefAllowance(empData.budgetaryReliefAllowance);
+            setTravellingAllowance(empData.travellingAllowance);
+            setSpecialAllowance(empData.specialAllowance);
+            setBank(empData.bank);
             setDepartmentId(empData.departmentId);
         };
 
@@ -82,6 +88,9 @@ export default function SuperAdminViewEmployee() {
             mobile,
             basicSalary,
             budgetaryReliefAllowance,
+            travellingAllowance,
+            specialAllowance,
+            bank,
             departmentId,
         };
 
@@ -275,6 +284,33 @@ export default function SuperAdminViewEmployee() {
                                         fullWidth
                                         variant="outlined"
                                         onChange={(e) => setBudgetaryReliefAllowance(e.target.value)}
+                                        disabled={!isEditing}
+                                        style={{ marginBottom: '10px' }}
+                                    />
+                                    <TextField
+                                        label="Travelling allowance"
+                                        value={travellingAllowance}
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={(e) => setTravellingAllowance(e.target.value)}
+                                        disabled={!isEditing}
+                                        style={{ marginBottom: '10px' }}
+                                    />
+                                    <TextField
+                                        label="Special allowance"
+                                        value={specialAllowance}
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={(e) => setSpecialAllowance(e.target.value)}
+                                        disabled={!isEditing}
+                                        style={{ marginBottom: '10px' }}
+                                    />
+                                    <TextField
+                                        label="Bank Acc No"
+                                        value={bank}
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={(e) => setBank(e.target.value)}
                                         disabled={!isEditing}
                                         style={{ marginBottom: '10px' }}
                                     />

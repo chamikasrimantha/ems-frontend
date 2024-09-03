@@ -37,7 +37,12 @@ export default function AdminAddSalary() {
 
         const basicSalary = parseFloat(updatedSalaryDetails[index].basicSalary) || 0;
         const budgetaryReliefAllowance = parseFloat(updatedSalaryDetails[index].budgetaryReliefAllowance) || 0;
+        // const travellingAllow = parseFloat(updatedSalaryDetails[index].travellingAllowance) || 0;
+        // const specialAllowance = parseFloat(updatedSalaryDetails[index].specialAllowance) || 0;
+        const serviceCharges = parseFloat(updatedSalaryDetails[index].serviceCharges) || 0;
+        const sc = parseFloat(updatedSalaryDetails[index].sc) || 0;
         const noPayDays = parseFloat(updatedSalaryDetails[index].noPayDays) || 0;
+        const leaveDays = parseFloat(updatedSalaryDetails[index].leaveDays) || 0;
         const normalOverTime = parseFloat(updatedSalaryDetails[index].normalOverTime) || 0;
         const cashFloat = parseFloat(updatedSalaryDetails[index].cashFloat) || 0;
         const staffLoan = parseFloat(updatedSalaryDetails[index].staffLoan) || 0;
@@ -46,6 +51,7 @@ export default function AdminAddSalary() {
         const doubleOverTime = parseFloat(updatedSalaryDetails[index].doubleOverTime) || 0;
 
         const noPay = ((basicSalary + budgetaryReliefAllowance) / 30) * noPayDays;
+        const noOfDays = 30 - (noPayDays + leaveDays);
         const totalForEpf = (basicSalary + budgetaryReliefAllowance) - noPay;
         const normalOverTimeCash = (((basicSalary + budgetaryReliefAllowance) / 240) * normalOverTime) * 1.5;
         const grossSalary = (totalForEpf + normalOverTimeCash) + doubleOverTime;
@@ -56,6 +62,13 @@ export default function AdminAddSalary() {
         const threePresentEtf = employeeType === 'PERMANENT' ? totalForEpf * 0.03 : '0';
         const twentyPresentEpf = employeeType === 'PERMANENT' ? totalForEpf * 0.2 : '0';
         const fiftyPresentOnBasic = basicSalary * 0.50;
+
+        const travellingAllow = updatedSalaryDetails[index].travellingAllow;
+        const specialAllow = updatedSalaryDetails[index].specialAllow;
+
+        const travellingAllowance = (travellingAllow / 30) * noOfDays;
+        const specialAllowance = (specialAllow / 30) * noOfDays;
+
         const totalDetuction = (
             eightPresentEpf +
             cashFloat +
@@ -65,6 +78,8 @@ export default function AdminAddSalary() {
         );
 
         const balancePay = (grossSalary - totalDetuction);
+
+        const totalSalary = (balancePay + travellingAllowance + specialAllowance + serviceCharges);
 
         updatedSalaryDetails[index] = {
             ...updatedSalaryDetails[index],
@@ -79,7 +94,11 @@ export default function AdminAddSalary() {
             threePresentEtf: threePresentEtf,
             twentyPresentEpf: twentyPresentEpf,
             fiftyPresentOnBasic: fiftyPresentOnBasic.toFixed(2),
-            totalSalary: balancePay.toFixed(2),
+            noOfDays: noOfDays.toFixed(2),
+            travellingAllowance: travellingAllowance.toFixed(2),
+            specialAllowance: specialAllowance.toFixed(2),
+            serviceCharges: serviceCharges.toFixed(2),
+            totalSalary: totalSalary.toFixed(2),
         };
 
         setSalaryDetails(updatedSalaryDetails);
@@ -97,15 +116,23 @@ export default function AdminAddSalary() {
                 console.log(employee.type);
 
                 const noPayDays = 0;  // This will be updated by handleInputChange
+                const leaveDays = 0;
                 const normalOverTime = 0;  // This will be updated by handleInputChange
                 const cashFloat = 0;  // This will be updated by handleInputChange
                 const staffLoan = 0;  // This will be updated by handleInputChange
                 const staffDebtors = 0;  // This will be updated by handleInputChange
                 const salaryAdvance = 0;  // This will be updated by handleInputChange
                 const doubleOverTime = 0;
+                const serviceCharges = 0;
+                const sc = 0;
 
                 const noPay = ((basicSalary + budgetaryReliefAllowance) / 30) * noPayDays;
                 const totalForEpf = (basicSalary + budgetaryReliefAllowance) - noPay;
+
+                const noOfDays = 30 - (noPayDays + leaveDays);
+
+                const travellingAllowance = (employee.travellingAllowance / 30) * noOfDays;
+                const specialAllowance = (employee.specialAllowance / 30) * noOfDays;
 
                 const totalHoursWorked = attendances.reduce((acc, attendance) => acc + (attendance.hoursWorked || 0), 0);
                 const normalOverTimeHours = Math.max(0, totalHoursWorked - 240);
@@ -113,7 +140,7 @@ export default function AdminAddSalary() {
 
                 const grossSalary = (totalForEpf + normalOverTimeCash) + doubleOverTime;;
 
-                const eightPresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.08 : '0';
+                const eightPresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.08 : 0.00;
                 const twelvePresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.12 : '0';
                 const threePresentEtf = employee.type === 'PERMANENT' ? totalForEpf * 0.03 : '0';
                 const twentyPresentEpf = employee.type === 'PERMANENT' ? totalForEpf * 0.2 : '0';
@@ -127,14 +154,19 @@ export default function AdminAddSalary() {
 
                 const balancePay = grossSalary - totalDetuction;
 
+                const totalSalary = (balancePay + travellingAllowance + specialAllowance + serviceCharges);
+
                 return {
                     employeeId: employee.id,
                     firstname: employee.firstname,
                     type: employee.type,
                     lastname: employee.lastname,
+                    travellingAllow: employee.travellingAllowance,
+                    specialAllow: employee.specialAllowance,
                     basicSalary: basicSalary.toFixed(2),
                     budgetaryReliefAllowance: budgetaryReliefAllowance.toFixed(2),
                     noPay: noPay.toFixed(2),
+                    noOfDays: noOfDays.toFixed(2),
                     grossSalary: grossSalary.toFixed(2),
                     totalForEpf: totalForEpf.toFixed(2),
                     normalOverTime: normalOverTimeCash.toFixed(2),
@@ -150,7 +182,11 @@ export default function AdminAddSalary() {
                     threePresentEtf: threePresentEtf,
                     twentyPresentEpf: twentyPresentEpf,
                     fiftyPresentOnBasic: (basicSalary * 0.50).toFixed(2),
-                    totalSalary: balancePay.toFixed(2),
+                    sc: sc,
+                    travellingAllowance: travellingAllowance.toFixed(2),
+                    specialAllowance: specialAllowance.toFixed(2),
+                    serviceCharges: serviceCharges.toFixed(2),
+                    totalSalary: totalSalary.toFixed(2),
                     date: new Date().toISOString().split('T')[0],  // Current date in YYYY-MM-DD format
                     monthId,
                 };
@@ -319,6 +355,8 @@ export default function AdminAddSalary() {
                                                     <th>Budgetary Relief Allowance</th>
                                                     <th>No Pay Days</th>
                                                     <th>No Pay</th>
+                                                    <th>Leave Days</th>
+                                                    <th>No Of Days</th>
                                                     <th>Gross Salary</th>
                                                     <th>Total for EPF</th>
                                                     <th>Normal OT Hours</th>
@@ -334,7 +372,10 @@ export default function AdminAddSalary() {
                                                     <th>12% EPF</th>
                                                     <th>3% ETF</th>
                                                     <th>20% EPF</th>
-                                                    <th>50% On Basic</th>
+                                                    <th>S/C %</th>
+                                                    <th>Travelling Allowance</th>
+                                                    <th>Special Allowance</th>
+                                                    <th>Service Charges</th>
                                                     <th>Total Salary</th>
                                                     <th>#</th>
                                                 </tr>
@@ -355,6 +396,15 @@ export default function AdminAddSalary() {
                                                             />
                                                         </td>
                                                         <td>{parseFloat(details.noPay).toFixed(2)}</td>
+                                                        <td>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={parseFloat(details.leaveDays).toFixed(2)}
+                                                                style={{ width: '100px' }}
+                                                                onChange={(e) => handleInputChange(index, 'leaveDays', e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>{parseFloat(details.noOfDays).toFixed(2)}</td>
                                                         <td>{parseFloat(details.grossSalary).toFixed(2)}</td>
                                                         <td>{parseFloat(details.totalForEpf).toFixed(2)}</td>
                                                         <td>
@@ -412,16 +462,33 @@ export default function AdminAddSalary() {
                                                         <td>{parseFloat(details.twelvePresentEpf).toFixed(2)}</td>
                                                         <td>{parseFloat(details.threePresentEtf).toFixed(2)}</td>
                                                         <td>{parseFloat(details.twentyPresentEpf).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.fiftyPresentOnBasic).toFixed(2)}</td>
+                                                        <td>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={parseFloat(details.sc).toFixed(2)}
+                                                                style={{ width: '100px' }}
+                                                                onChange={(e) => handleInputChange(index, 'sc', e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>{parseFloat(details.travellingAllowance).toFixed(2)}</td>
+                                                        <td>{parseFloat(details.specialAllowance).toFixed(2)}</td>
+                                                        <td>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={parseFloat(details.serviceCharges).toFixed(2)}
+                                                                style={{ width: '100px' }}
+                                                                onChange={(e) => handleInputChange(index, 'serviceCharges', e.target.value)}
+                                                            />
+                                                        </td>
                                                         <td>{parseFloat(details.totalSalary).toFixed(2)}</td>
-                                                        <td><Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={() => addSalary(index)}>Save Salary</Button></td>
+                                                        <td><Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={() => addSalary(index)}>Save</Button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </Table>
                                     )}
 
-                                    
+
                                 </Form>
                             </div>
                         </Col>

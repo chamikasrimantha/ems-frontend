@@ -22,6 +22,9 @@ import AdminUploadAttendance from './pages/admin/admin.attendance/AdminUploadAtt
 import AdminGetAttendancesByEmployee from './pages/admin/admin.attendance/AdminGetAttendancesByEmployee';
 import AdminSalaries from './pages/admin/admin.salaries/AdminSalaries';
 import AdminAddSalary from './pages/admin/admin.salaries/AdminAddSalary';
+import AdminSalarySummary from './pages/admin/admin.salaries/AdminSalarySummary';
+import AdminSalarySheet from './pages/admin/admin.salaries/AdminSalarySheet';
+import AdminSalarySlips from './pages/admin/admin.salaries/AdminSalarySlips';
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
           <Route path='/admin/attendances' element={<AdminUploadAttendance />} />
           <Route path='/admin/attendance-by-employee' element={<AdminGetAttendancesByEmployee />} />
           <Route path='/admin/salaries' element={<AdminSalaries />} />
+          <Route path='/admin/salaries/sheet' element={<AdminSalarySheet />} />
+          <Route path='/admin/salaries/summary' element={<AdminSalarySummary />} />
+          <Route path='/admin/salaries/slips' element={<AdminSalarySlips />} />
           <Route path='/admin/create-salary' element={<AdminAddSalary />} />
 
         </Routes>

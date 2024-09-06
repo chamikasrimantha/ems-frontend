@@ -35,6 +35,25 @@ export default function AdminSalaries() {
         textAlign: 'left',
     };
 
+    const square1Style = {
+        backgroundColor: '#0f4c75',
+        color: "white",
+        border: '1px solid #DEDCDD',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px',
+        textAlign: 'left',
+    };
+
+    const square2Style = {
+        backgroundColor: 'lightgrey',
+        border: '1px solid #DEDCDD',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px',
+        textAlign: 'left',
+    };
+
     useEffect(() => {
         fetchAllMonths();
         fetchAllDepartments();
@@ -97,6 +116,18 @@ export default function AdminSalaries() {
         navigate('/admin/create-salary');
     };
 
+    const gotoSummary = () => {
+        navigate('/admin/salaries/summary');
+    }
+
+    const gotoSheet = () => {
+        navigate('/admin/salaries/sheet');
+    }
+
+    const gotoSlips = () => {
+        navigate('/admin/salaries/slips');
+    }
+
     return (
         <div>
             <AdminNavBar />
@@ -105,13 +136,13 @@ export default function AdminSalaries() {
                 <Container fluid>
                     <Row className="justify-content-center">
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary sheet</h4>
+                            <div style={square1Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Create new salary sheet</h4>
                                 <p style={{ fontSize: '1rem' }}>Click 'Create' to create a new salary sheet.</p>
                                 <Box>
                                     <Button
                                         variant="contained"
-                                        color="primary"
+                                        style={{backgroundColor: 'white', color: 'black'}}
                                         onClick={gotoCreate}
                                     >
                                         Create
@@ -120,166 +151,54 @@ export default function AdminSalaries() {
                             </div>
                         </Col>
                     </Row>
-                    <Row className="justify-content-center">
-                        <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary details</h4>
-                            </div>
-                        </Col>
-                    </Row>
 
-                    <Row className="justify-content-center mt-3">
-                        <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Select Month, Department & Type</h4>
-                                <p style={{ fontSize: '1rem' }}>Please select month, department & type and then click on 'Load' button to get salary details.</p>
-                                <Form.Control
-                                    as="select"
-                                    value={selectedMonth}
-                                    onChange={handleMonthChange}
-                                    className="mb-3"
-                                >
-                                    <option value="">Select a month</option>
-                                    {months.map(month => (
-                                        <option key={month.id} value={month.id}>
-                                            {month.name}
-                                        </option>
-                                    ))}
-                                </Form.Control>
-                                <Form.Control
-                                    as="select"
-                                    value={selectedDepartment}
-                                    onChange={handleDepartmentChange}
-                                    className="mb-3"
-                                >
-                                    <option value="">Select a department</option>
-                                    {departments.map(department => (
-                                        <option key={department.id} value={department.id}>
-                                            {department.name}
-                                        </option>
-                                    ))}
-                                </Form.Control>
-                                <Form.Control
-                                    as="select"
-                                    value={employeeType}
-                                    onChange={handleEmployeeTypeChange}
-                                >
-                                    <option value="">Select employee type</option>
-                                    <option value="PROBATION">PROBATION</option>
-                                    <option value="PERMANENT">PERMANENT</option>
-                                </Form.Control>
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={square2Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Get salary sheet details</h4>
                                 <Box>
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        onClick={fetchSalariesByMonthAndDepartment}
-                                        className="mt-3"
+                                        onClick={gotoSheet}
                                     >
-                                        Load
+                                        Get
                                     </Button>
                                 </Box>
                             </div>
                         </Col>
                     </Row>
 
-                    <Row className="justify-content-center mt-3">
-                        <Col md={12} style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary Sheet</h4>
-                                <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName} | {employeeType} Staff</p>
-                                <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.75rem' }}>
-                                    <thead>
-                                        <tr>
-                                            <th>Employee ID</th>
-                                            <th>Employee Name</th>
-                                            <th>Department</th>
-                                            <th>EPF No</th>
-                                            <th>Basic Salary</th>
-                                            <th>Budgetary Relief Allowance</th>
-                                            <th>No Pay</th>
-                                            <th>Total For EPF</th>
-                                            <th>Normal Overtime</th>
-                                            <th>Double Overtime</th>
-                                            <th>Gross Salary</th>
-                                            <th>8% EPF</th>
-                                            <th>Cash Float</th>
-                                            <th>Staff Loan</th>
-                                            <th>Staff Debtors</th>
-                                            <th>Salary Advance</th>
-                                            <th>Total Deduction</th>
-                                            <th>Balance Pay</th>
-                                            <th>12% EPF</th>
-                                            <th>3% ETF</th>
-                                            <th>20% EPF</th>
-                                            <th>50% on Basic</th>
-                                            <th>Total Salary</th>
-                                            <th>#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {salaries.map(salary => (
-                                            <tr key={salary.id}>
-                                                <td>{salary.employeeEntity.id}</td>
-                                                <td>{salary.employeeEntity.firstname} {salary.employeeEntity.lastname}</td>
-                                                <td>{salary.employeeEntity.departmentEntity.name}</td>
-                                                <td>{salary.employeeEntity.epf}</td>
-                                                <td>{parseFloat(salary.basicSalary).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.budgetaryReliefAllowance).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.noPay).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.totalForEpf).toFixed(2)}</td>
-                                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.doubleOverTime).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.grossSalary).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.cashFloat).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.staffLoan).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.staffDebtors).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.salaryAdvance).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.totalDetuction).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.balancePay).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.twelvePresentEpf).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.threePresentEtf).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.twentyPresentEpf).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.fiftyPresentOnBasic).toFixed(2)}</td>
-                                                <td>{parseFloat(salary.totalSalary).toFixed(2)}</td>
-                                                <td><Button
-                                                    variant="contained"
-                                                    color="secondary"
-                                                    onClick={() => handleDelete(salary.id)}
-                                                    className="ml-2"
-                                                >
-                                                    Delete
-                                                </Button></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
-                                <ReactToPrint
-                                    trigger={() => <Button className="mt-3" variant="contained" color="primary">Print</Button>}
-                                    content={() => printRef.current}
-                                    pageStyle="@media print { @page { size: landscape; } body { margin: 0; } }"
-                                />
-                                {/* <ReactToPrint
-                                    trigger={() => (
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className="mt-3"
-                                        >
-                                            Print Salary Sheet
-                                        </Button>
-                                    )}
-                                    content={() => printRef.current}
-                                /> */}
-                                <div style={{ display: 'none' }}>
-                                    <SalarySheetPrint
-                                        ref={printRef}
-                                        salaries={salaries}
-                                        monthName={selectedMonthName}
-                                        type={employeeType}
-                                        departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''}
-                                    />
-                                </div>
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={square2Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Get salary summary details</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSummary}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={square2Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Get salary slips</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSlips}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
                             </div>
                         </Col>
                     </Row>

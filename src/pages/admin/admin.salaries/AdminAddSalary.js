@@ -269,6 +269,16 @@ export default function AdminAddSalary() {
         textAlign: 'left',
     };
 
+    const square1Style = {
+        backgroundColor: '#0f4c75',
+        color: "white",
+        border: '1px solid #DEDCDD',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px',
+        textAlign: 'left',
+    };
+
     return (
         <div>
             <AdminNavBar />
@@ -276,7 +286,7 @@ export default function AdminAddSalary() {
                 <Container fluid>
                     <Row className="justify-content-center">
                         <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
-                            <div style={squareStyle}>
+                            <div style={square1Style}>
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Create new salary sheet</h4>
                             </div>
                         </Col>

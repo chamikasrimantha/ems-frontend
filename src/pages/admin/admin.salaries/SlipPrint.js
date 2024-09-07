@@ -8,15 +8,20 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
         marginBottom: '5px',
         fontSize: '10px',
         wordWrap: 'break-word',
+        fontFamily: 'Times New Roman, Times, serif',
+        borderCollapse: 'collapse', // Ensure borders collapse into a single line
+        border: '1px solid #000', // Darker border color and increased thickness
     };
 
     const cellStyle = {
         padding: '5px',
+        fontFamily: 'Times New Roman, Times, serif', // Add this line
     };
 
     const headerStyle = {
         textAlign: 'center',
         fontSize: '0.75rem',
+        fontFamily: 'Times New Roman, Times, serif', // Add this line
     };
 
     const sectionStyle = {
@@ -57,7 +62,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                                 <td style={cellStyle}>Budgetary Relief Allowance:</td>
                                 <td>{salary.employeeEntity.budgetaryReliefAllowance}</td>
                                 <td style={cellStyle}>Normal OT:</td>
-                                <td>{salary.normalOverTime}</td>
+                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td style={cellStyle}>No Pay:</td>
@@ -80,7 +85,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                             </tr>
                             <tr>
                                 <td style={cellStyle}>EPF 8%</td>
-                                <td>{salary.eightPresentEpf}</td>
+                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
                                 <td style={cellStyle}>APIIT:</td>
                                 <td>{salary.apiitValue}</td>
                             </tr>
@@ -92,15 +97,27 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Total Deduction:</td>
-                                <td colSpan="2">{salary.totalDeduction}</td>
+                                <td colSpan="2">{parseFloat(salary.totalDeduction).toFixed(2)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Net Salary:</td>
-                                <td colSpan="2">{salary.netSalary}</td>
+                                <td colSpan="2">{parseFloat(salary.netSalary).toFixed(2)}</td>
                             </tr>
-                            <tr>
-                                <td colSpan="4" style={{ ...cellStyle, textAlign: 'right', fontWeight: 'bold' }}>
-                                    Signature: ____________________
+                            <tr style={{ height: '20px' }}>
+                                <td colSpan="2">
+                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                        EPF 12%: {parseFloat(salary.twelvePresentEpf).toFixed(2)}
+                                    </td>
+                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                        EPF 20%: {parseFloat(salary.twentyPresentEpf).toFixed(2)}
+                                    </td>
+                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                        ETF 3%: {parseFloat(salary.threePresentEtf).toFixed(2)}
+                                    </td>
+                                </td>
+
+                                <td colSpan="2" style={{ padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
+                                    Signature: ____________________________________
                                 </td>
                             </tr>
                         </tbody>

@@ -111,7 +111,7 @@ export default function AdminSalarySlips() {
     };
 
     const calculateTotalAddition = (salary) => {
-        return (salary.normalOverTime) + (salary.doubleOverTime);
+        return ((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5) + (salary.doubleOverTime);
     }
 
     const calculateNetSalary = (salary) => {
@@ -209,11 +209,11 @@ export default function AdminSalarySlips() {
                                 <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary slips</h4>
                                 <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName} | {employeeType} Staff</p>
                                 {salaries.map(salary => (
-                                    <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.85rem', border: '2px solid black', width: '80%', margin: '0 auto' }}>
+                                    <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.85rem', border: '2px solid black', width: '80%', margin: '0 auto', marginBottom: '40px' }}>
                                         <thead>
                                             <tr>
                                                 <th colSpan="4" style={{ backgroundColor: '', color: 'black', textAlign: 'left', fontSize: '1.2rem', padding: '10px' }}>
-                                                    Benjarong Pvt Ltd - {}
+                                                    Benjarong Pvt Ltd - {departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -223,10 +223,12 @@ export default function AdminSalarySlips() {
                                                 <td>{salary.employeeEntity.surname} {salary.employeeEntity.firstname} {salary.employeeEntity.lastname}</td>
                                                 <td style={{ padding: '10px', fontWeight: 'bold' }}>Date:</td>
                                                 <td>
-                                                    <input
+                                                    <Form.Control
                                                         type="date"
+                                                        style={{ height: '30px' }}
                                                         value={dateValue[salary.id] || ''}
                                                         onChange={(e) => handleDateChange(salary.id, e.target.value)}
+                                                    // className="mb-3"
                                                     />
                                                 </td>
                                             </tr>
@@ -246,7 +248,7 @@ export default function AdminSalarySlips() {
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Budgetary Relief Allowance:</td>
                                                 <td>{salary.employeeEntity.budgetaryReliefAllowance}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Normal OT:</td>
-                                                <td>{salary.normalOverTime}</td>
+                                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>No Pay:</td>
@@ -269,13 +271,15 @@ export default function AdminSalarySlips() {
                                             </tr>
                                             <tr>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>EPF 8%</td>
-                                                <td>{salary.eightPresentEpf}</td>
+                                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>APIIT:</td>
                                                 <td>
-                                                    <input
+                                                    <Form.Control
                                                         type="number"
-                                                        value={apiitValue[salary.id] || ''}
+                                                        style={{ height: '30px' }}
+                                                        value={apiitValue[salary.id] || 0.00}
                                                         onChange={(e) => handleApiitChange(salary.id, e.target.value)}
+                                                    // className="mb-3"
                                                     />
                                                 </td>
                                             </tr>
@@ -293,30 +297,33 @@ export default function AdminSalarySlips() {
                                         </tr> */}
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total Deduction:</td>
-                                                <td colSpan="2">{calculateTotalDeduction(salary)}</td>
+                                                <td colSpan="2">{parseFloat(calculateTotalDeduction(salary)).toFixed(2)}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Net Salary:</td>
-                                                <td colSpan="2">{calculateNetSalary(salary)}</td>
+                                                <td colSpan="2">{parseFloat(calculateNetSalary(salary)).toFixed(2)}</td>
                                             </tr>
-                                            <tr>
-                                                <td colSpan="1" style={{ padding: '20px 10px', textAlign: 'left' }}>
-                                                    EPF 12%: {salary.twelvePresentEpf}
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2">
+                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                                        EPF 12%: {parseFloat(salary.twelvePresentEpf).toFixed(2)}
+                                                    </td>
+                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                                        EPF 20%: {parseFloat(salary.twentyPresentEpf).toFixed(2)}
+                                                    </td>
+                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
+                                                        ETF 3%: {parseFloat(salary.threePresentEtf).toFixed(2)}
+                                                    </td>
                                                 </td>
-                                                <td colSpan="1" style={{ padding: '20px 10px', textAlign: 'left' }}>
-                                                    EPF 20%: {salary.twentyPresentEpf}
-                                                </td>
-                                                <td colSpan="1" style={{ padding: '20px 10px', textAlign: 'left' }}>
-                                                    ETF 3%: {salary.threePresentEtf}
-                                                </td>
-                                                <td colSpan="3" style={{ padding: '20px 10px', textAlign: 'center', fontWeight: 'bold' }}>
-                                                    Signature: ____________________
+
+                                                <td colSpan="2" style={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}>
+                                                    Signature: ____________________________________
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </Table>
                                 ))}
-                                <br/>
+                                <br />
                                 <ReactToPrint
                                     trigger={() => <Button variant="contained" color="primary">Print Salary Slips</Button>}
                                     content={() => printRef.current}

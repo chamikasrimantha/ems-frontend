@@ -202,6 +202,41 @@ export default function AdminSalaries() {
                             </div>
                         </Col>
                     </Row>
+
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={square2Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Get allowance slips</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSlips}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '90%' }}>
+                            <div style={square2Style}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>+ Get salary transfer list</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSlips}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
+                            </div>
+                        </Col>
+                    </Row>
+
                 </Container>
             </div>
 

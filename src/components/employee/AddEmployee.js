@@ -26,6 +26,7 @@ export default function AddEmployee() {
     const [budgetaryReliefAllowance, setBudgetaryReliefAllowance] = useState("");
     const [travellingAllowance, setTravellingAllowance] = useState("");
     const [specialAllowance, setSpecialAllowance] = useState("");
+    const [bankname, setBankname] = useState("");
     const [bank, setBank] = useState("");
     const [departmentId, setDepartmentId] = useState("");
 
@@ -65,6 +66,7 @@ export default function AddEmployee() {
             "budgetaryReliefAllowance": budgetaryReliefAllowance,
             "travellingAllowance": travellingAllowance,
             "specialAllowance": specialAllowance,
+            "bankname": bankname,
             "bank": bank,
             "departmentId": departmentId
         }
@@ -173,6 +175,7 @@ export default function AddEmployee() {
                                 <TextField value={budgetaryReliefAllowance} onChange={(e) => setBudgetaryReliefAllowance(e.target.value)} label="Budgetary relief allowance" variant="outlined" className="mb-3" fullWidth />
                                 <TextField value={travellingAllowance} onChange={(e) => setTravellingAllowance(e.target.value)} label="Travelling allowance" variant="outlined" className="mb-3" fullWidth />
                                 <TextField value={specialAllowance} onChange={(e) => setSpecialAllowance(e.target.value)} label="Special allowance" variant="outlined" className="mb-3" fullWidth />
+                                <TextField value={bankname} onChange={(e) => setBankname(e.target.value)} label="Bank Name" variant="outlined" className="mb-3" fullWidth />
                                 <TextField value={bank} onChange={(e) => setBank(e.target.value)} label="Bank Acc No" variant="outlined" className="mb-3" fullWidth />
                             </div>
                         </Col>

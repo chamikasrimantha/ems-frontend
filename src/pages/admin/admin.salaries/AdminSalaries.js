@@ -128,6 +128,14 @@ export default function AdminSalaries() {
         navigate('/admin/salaries/slips');
     }
 
+    const gotoAllowances = () => {
+        navigate("/admin/salaries/allowances");
+    }
+
+    const gotoTransfers = () => {
+        navigate("/admin/salaries/transfers");
+    }
+
     return (
         <div>
             <AdminNavBar />
@@ -211,7 +219,7 @@ export default function AdminSalaries() {
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        onClick={gotoSlips}
+                                        onClick={gotoAllowances}
                                     >
                                         Get
                                     </Button>
@@ -228,7 +236,7 @@ export default function AdminSalaries() {
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        onClick={gotoSlips}
+                                        onClick={gotoTransfers}
                                     >
                                         Get
                                     </Button>

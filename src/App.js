@@ -25,6 +25,8 @@ import AdminAddSalary from './pages/admin/admin.salaries/AdminAddSalary';
 import AdminSalarySummary from './pages/admin/admin.salaries/AdminSalarySummary';
 import AdminSalarySheet from './pages/admin/admin.salaries/AdminSalarySheet';
 import AdminSalarySlips from './pages/admin/admin.salaries/AdminSalarySlips';
+import AdminAllowanceSlips from './pages/admin/admin.salaries/AdminAllowanceSlips';
+import AdminSalaryTransferList from './pages/admin/admin.salaries/AdminSalaryTransferList';
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
           <Route path='/admin/salaries/sheet' element={<AdminSalarySheet />} />
           <Route path='/admin/salaries/summary' element={<AdminSalarySummary />} />
           <Route path='/admin/salaries/slips' element={<AdminSalarySlips />} />
+          <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />
+          <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
           <Route path='/admin/create-salary' element={<AdminAddSalary />} />
 
         </Routes>

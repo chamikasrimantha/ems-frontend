@@ -38,6 +38,7 @@ export default function AdminViewEmployee() {
     const [budgetaryReliefAllowance, setBudgetaryReliefAllowance] = useState("");
     const [travellingAllowance, setTravellingAllowance] = useState("");
     const [specialAllowance, setSpecialAllowance] = useState("");
+    const [bankname, setBankname] = useState("");
     const [bank, setBank] = useState("");
     const [departmentId, setDepartmentId] = useState("");
 
@@ -65,6 +66,7 @@ export default function AdminViewEmployee() {
             setBudgetaryReliefAllowance(empData.budgetaryReliefAllowance);
             setTravellingAllowance(empData.travellingAllowance);
             setSpecialAllowance(empData.specialAllowance);
+            setBankname(empData.bankname);
             setBank(empData.bank);
             setDepartmentId(empData.departmentId);
         };
@@ -91,6 +93,7 @@ export default function AdminViewEmployee() {
             budgetaryReliefAllowance,
             travellingAllowance,
             specialAllowance,
+            bankname,
             bank,
             departmentId,
         };
@@ -303,6 +306,15 @@ export default function AdminViewEmployee() {
                                         fullWidth
                                         variant="outlined"
                                         onChange={(e) => setSpecialAllowance(e.target.value)}
+                                        disabled={!isEditing}
+                                        style={{ marginBottom: '10px' }}
+                                    />
+                                    <TextField
+                                        label="Bank Name"
+                                        value={bankname}
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={(e) => setBankname(e.target.value)}
                                         disabled={!isEditing}
                                         style={{ marginBottom: '10px' }}
                                     />

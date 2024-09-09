@@ -245,8 +245,8 @@ export default function AdminAllowanceSlips() {
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>
-                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Particulars</th>
-                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Amount</th>
+                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold', textAlign: 'center' }}>Particulars</th>
+                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold', textAlign: 'center' }}>Amount</th>
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>

@@ -67,8 +67,8 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                             </tr>
 
                             <tr style={{ height: '20px' }}>
-                                <th colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Particulars</th>
-                                <th colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Amount</th>
+                                <th colSpan="2" style={{ ...cellStyle, fontWeight: 'bold', textAlign: 'center' }}>Particulars</th>
+                                <th colSpan="2" style={{ ...cellStyle, fontWeight: 'bold', textAlign: 'center' }}>Amount</th>
                             </tr>
 
                             <tr style={{ height: '20px' }}>

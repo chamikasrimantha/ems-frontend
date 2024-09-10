@@ -96,7 +96,7 @@ export default function AdminDashboard() {
                         <DashboardCard title="Total Departments" value={totalDepartments} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <DashboardCard title="Total Transactions" value={totalTransactions} />
+                        <DashboardCard title="Total Transactions" value={parseFloat(totalTransactions).toFixed(2)} />
                     </Grid>
                 </Grid>
             </Box>

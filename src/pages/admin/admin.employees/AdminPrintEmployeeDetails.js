@@ -14,22 +14,24 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
     return (
         <div ref={ref} style={{ width: '100%', padding: '10px' }}>
             <Container fluid>
-                <h2 style={{ textAlign: 'center', marginTop: '20px' }}>
+                <h2 style={{ fontSize: '1rem', textAlign: 'left', marginTop: '20px' }}>
                     Employees of {getDepartmentNames()}
                 </h2>
-                <Table striped bordered hover style={{ marginBottom: '30px', marginTop: '20px', width: '100%' }}>
+                <Table bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
                             <th>Designation</th>
                             <th>Email</th>
+                            <th>NIC</th>
                             <th>Phone No</th>
                             <th>DOB</th>
                             <th>WEF</th>
                             <th>EPF</th>
                             <th>Type</th>
                             <th>Basic Salary</th>
+                            <th>Special Allowance</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,12 +42,14 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
                                     <td>{`${employee.firstname} ${employee.lastname}`}</td>
                                     <td>{employee.designation}</td>
                                     <td>{employee.email}</td>
+                                    <td>{employee.nic}</td>
                                     <td>{employee.mobile}</td>
                                     <td>{employee.dob}</td>
                                     <td>{employee.wef}</td>
                                     <td>{employee.epf}</td>
                                     <td>{employee.type}</td>
                                     <td>{employee.basicSalary}</td>
+                                    <td>{employee.specialAllowance}</td>
                                 </tr>
                             ))
                         ) : (

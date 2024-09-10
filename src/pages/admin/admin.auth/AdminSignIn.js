@@ -52,7 +52,7 @@ export default function AdminSignIn() {
                     padding: "0",
                 }}
             >
-                <Paper elevation={3} style={{ padding: "30px", maxWidth: "400px", width: "100%", backgroundColor: "white" }}>
+                <Paper elevation={3} style={{ padding: "30px", maxWidth: "400px", width: "90%", backgroundColor: "white" }}>
                     <Typography variant="h5" gutterBottom style={{ color: "#1a1a2e", fontWeight: "bold" }}>
                         Admin - SignIn
                     </Typography>

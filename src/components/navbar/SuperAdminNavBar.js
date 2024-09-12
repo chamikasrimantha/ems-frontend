@@ -53,8 +53,7 @@ export default function SuperAdminNavBar() {
         navigate('/superadmin/profile');
     }
 
-    // const isSignedIn = !!localStorage.getItem('token');
-    const isSignedIn = true;
+    const isSignedIn = !!localStorage.getItem('token');
 
     return (
         <Navbar expand="lg" style={{ backgroundColor: '#1a1a2e', minHeight: '70px' }} variant="dark">

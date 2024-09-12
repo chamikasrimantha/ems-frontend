@@ -35,6 +35,8 @@ import AllowanceSlips from './pages/superadmin/superadmin.salaries/AllowanceSlip
 import SalaryTransferList from './pages/superadmin/superadmin.salaries/SalaryTransferList';
 import SuperAdminAnalysis from './pages/superadmin/superadmin.analysis/SuperAdminAnalysis';
 import AdminAnalysis from './pages/admin/admin.analysis/AdminAnalysis';
+import SuperAdminProtectedRoutes from './utils/SuperAdminProtectedRoutes';
+import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
 
 function App() {
   return (
@@ -45,40 +47,44 @@ function App() {
           <Route path='/' element={<Default />} />
           <Route path='/superadmin/signin' element={<SuperAdminSignIn />} />
 
-          <Route path='/superadmin/dashboard' element={<SuperAdminDashboard />} />
-          <Route path='/superadmin/departments' element={<SuperAdminDepartment />} />
-          <Route path='/superadmin/employees' element={<SuperAdminEmployees />} />
-          <Route path='/superadmin/add-employee' element={<SuperAdminAddEmployee />} />
-          <Route path='/superadmin/employees/:id' element={<SuperAdminViewEmployee />} />
-          <Route path='/superadmin/employees-by-department' element={<SuperAdminGetEmployeesByDepartment />} />
-          <Route path='/superadmin/admins' element={<SuperAdminAdmins />} />
-          <Route path='/superadmin/add-admin' element={<SuperAdminAddAdmins />} />
-          <Route path='/superadmin/add-superadmin' element={<SuperAdminAddSuperAdmins />} />
-          <Route path='/superadmin/admins/:id' element={<SuperAdminViewAll />} />
-          <Route path='/superadmin/salaries' element={<SuperAdminSalaries />} />
-          <Route path='/superadmin/salaries/sheet' element={<SalarySheet />} />
-          <Route path='/superadmin/salaries/summary' element={<SalarySummarySheet />} />
-          <Route path='/superadmin/salaries/slips' element={<SalarySlips />} />
-          <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
-          <Route path='/superadmin/salaries/transfers' element={<SalaryTransferList />} />
-          <Route path='/superadmin/analysis' element={<SuperAdminAnalysis />} />
+          <Route element={<SuperAdminProtectedRoutes />} >
+            <Route path='/superadmin/dashboard' element={<SuperAdminDashboard />} />
+            <Route path='/superadmin/departments' element={<SuperAdminDepartment />} />
+            <Route path='/superadmin/employees' element={<SuperAdminEmployees />} />
+            <Route path='/superadmin/add-employee' element={<SuperAdminAddEmployee />} />
+            <Route path='/superadmin/employees/:id' element={<SuperAdminViewEmployee />} />
+            <Route path='/superadmin/employees-by-department' element={<SuperAdminGetEmployeesByDepartment />} />
+            <Route path='/superadmin/admins' element={<SuperAdminAdmins />} />
+            <Route path='/superadmin/add-admin' element={<SuperAdminAddAdmins />} />
+            <Route path='/superadmin/add-superadmin' element={<SuperAdminAddSuperAdmins />} />
+            <Route path='/superadmin/admins/:id' element={<SuperAdminViewAll />} />
+            <Route path='/superadmin/salaries' element={<SuperAdminSalaries />} />
+            <Route path='/superadmin/salaries/sheet' element={<SalarySheet />} />
+            <Route path='/superadmin/salaries/summary' element={<SalarySummarySheet />} />
+            <Route path='/superadmin/salaries/slips' element={<SalarySlips />} />
+            <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
+            <Route path='/superadmin/salaries/transfers' element={<SalaryTransferList />} />
+            <Route path='/superadmin/analysis' element={<SuperAdminAnalysis />} />
+          </Route>
 
           <Route path='/admin/signin' element={<AdminSignIn />} />
 
-          <Route path='/admin/dashboard' element={<AdminDashboard />} />
-          <Route path='/admin/employees' element={<AdminEmployees />} />
-          <Route path='/admin/employees-by-department' element={<AdminGetEmployeesByDepartment />} />
-          <Route path='/admin/employees/:id' element={<AdminViewEmployee />} />
-          <Route path='/admin/attendances' element={<AdminUploadAttendance />} />
-          <Route path='/admin/attendance-by-employee' element={<AdminGetAttendancesByEmployee />} />
-          <Route path='/admin/salaries' element={<AdminSalaries />} />
-          <Route path='/admin/salaries/sheet' element={<AdminSalarySheet />} />
-          <Route path='/admin/salaries/summary' element={<AdminSalarySummary />} />
-          <Route path='/admin/salaries/slips' element={<AdminSalarySlips />} />
-          <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />
-          <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
-          <Route path='/admin/create-salary' element={<AdminAddSalary />} />
-          <Route path='/admin/analysis' element={<AdminAnalysis />} />
+          <Route element={<AdminProtectedRoutes />} >
+            <Route path='/admin/dashboard' element={<AdminDashboard />} />
+            <Route path='/admin/employees' element={<AdminEmployees />} />
+            <Route path='/admin/employees-by-department' element={<AdminGetEmployeesByDepartment />} />
+            <Route path='/admin/employees/:id' element={<AdminViewEmployee />} />
+            <Route path='/admin/attendances' element={<AdminUploadAttendance />} />
+            <Route path='/admin/attendance-by-employee' element={<AdminGetAttendancesByEmployee />} />
+            <Route path='/admin/salaries' element={<AdminSalaries />} />
+            <Route path='/admin/salaries/sheet' element={<AdminSalarySheet />} />
+            <Route path='/admin/salaries/summary' element={<AdminSalarySummary />} />
+            <Route path='/admin/salaries/slips' element={<AdminSalarySlips />} />
+            <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />
+            <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
+            <Route path='/admin/create-salary' element={<AdminAddSalary />} />
+            <Route path='/admin/analysis' element={<AdminAnalysis />} />
+          </Route>
 
         </Routes>
       </BrowserRouter>

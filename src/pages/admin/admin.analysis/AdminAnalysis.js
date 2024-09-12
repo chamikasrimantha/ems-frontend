@@ -1,18 +1,18 @@
 import React from 'react';
-import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
 import Footer from '../../../components/footer/Footer';
+import AdminNavBar from '../../../components/navbar/AdminNavBar';
 
 export default function AdminAnalysis() {
 
     return (
         <div>
-            <SuperAdminNavBar />
+            <AdminNavBar />
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
             <h4>Under Maintenance</h4>
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <Footer />
         </div>
     )

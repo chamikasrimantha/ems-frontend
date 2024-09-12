@@ -6,7 +6,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
     const tableStyle = {
         width: '100%',
         marginBottom: '5px',
-        fontSize: '10px',
+        fontSize: '12px',
         wordWrap: 'break-word',
         fontFamily: 'Times New Roman, Times, serif',
         borderCollapse: 'collapse', // Ensure borders collapse into a single line

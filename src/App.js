@@ -27,6 +27,14 @@ import AdminSalarySheet from './pages/admin/admin.salaries/AdminSalarySheet';
 import AdminSalarySlips from './pages/admin/admin.salaries/AdminSalarySlips';
 import AdminAllowanceSlips from './pages/admin/admin.salaries/AdminAllowanceSlips';
 import AdminSalaryTransferList from './pages/admin/admin.salaries/AdminSalaryTransferList';
+import SuperAdminSalaries from './pages/superadmin/superadmin.salaries/SuperAdminSalaries';
+import SalarySheet from './pages/superadmin/superadmin.salaries/SalarySheet';
+import SalarySummarySheet from './pages/superadmin/superadmin.salaries/SalarySummarySheet';
+import SalarySlips from './pages/superadmin/superadmin.salaries/SalarySlips';
+import AllowanceSlips from './pages/superadmin/superadmin.salaries/AllowanceSlips';
+import SalaryTransferList from './pages/superadmin/superadmin.salaries/SalaryTransferList';
+import SuperAdminAnalysis from './pages/superadmin/superadmin.analysis/SuperAdminAnalysis';
+import AdminAnalysis from './pages/admin/admin.analysis/AdminAnalysis';
 
 function App() {
   return (
@@ -47,6 +55,13 @@ function App() {
           <Route path='/superadmin/add-admin' element={<SuperAdminAddAdmins />} />
           <Route path='/superadmin/add-superadmin' element={<SuperAdminAddSuperAdmins />} />
           <Route path='/superadmin/admins/:id' element={<SuperAdminViewAll />} />
+          <Route path='/superadmin/salaries' element={<SuperAdminSalaries />} />
+          <Route path='/superadmin/salaries/sheet' element={<SalarySheet />} />
+          <Route path='/superadmin/salaries/summary' element={<SalarySummarySheet />} />
+          <Route path='/superadmin/salaries/slips' element={<SalarySlips />} />
+          <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
+          <Route path='/superadmin/salaries/transfers' element={<SalaryTransferList />} />
+          <Route path='/superadmin/analysis' element={<SuperAdminAnalysis />} />
 
           <Route path='/admin/signin' element={<AdminSignIn />} />
 
@@ -63,6 +78,7 @@ function App() {
           <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />
           <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
           <Route path='/admin/create-salary' element={<AdminAddSalary />} />
+          <Route path='/admin/analysis' element={<AdminAnalysis />} />
 
         </Routes>
       </BrowserRouter>

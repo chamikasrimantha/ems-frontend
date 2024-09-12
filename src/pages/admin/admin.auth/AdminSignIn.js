@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { adminLogin } from '../../../services/api/user.service';
+import { adminLogin, getUsersById } from '../../../services/api/user.service';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import axios from 'axios';
@@ -24,8 +24,22 @@ export default function AdminSignIn() {
                 localStorage.setItem("token", token);
                 localStorage.setItem("userId", userId);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                alert("SignIn Successful");
-                navigate("/admin/dashboard");
+
+                // Now check the user role
+                const userResponse = await getUsersById(userId);
+                const { role } = userResponse.data;
+
+                if (role === 'ADMIN') {
+                    alert("SignIn Successful");
+                    navigate("/admin/dashboard");
+                } else {
+                    alert("Unauthorized! Only ADMINS can log in.");
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("userId");
+                }
+
+                // alert("SignIn Successful");
+                // navigate("/admin/dashboard");
             } else {
                 alert("Username or password is incorrect!");
                 console.log("LogIn Error");

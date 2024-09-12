@@ -9,9 +9,10 @@ import { getAllMonths } from '../../../services/api/month.service';
 import { getEmployeesByDepartments } from '../../../services/api/employee.service';
 import { getAllDepartments } from '../../../services/api/department.service';
 import ReactToPrint from 'react-to-print';
-import SlipPrint from './SlipPrint';
+import SlipPrint from '../../admin/admin.salaries/SlipPrint';
+import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
 
-export default function AdminSalarySlips() {
+export default function SalarySlips() {
 
     const isMobile = useMediaQuery('(max-width: 600px)');
     const [months, setMonths] = useState([]);
@@ -112,7 +113,7 @@ export default function AdminSalarySlips() {
 
     const calculateTotalAddition = (salary) => {
         return ((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5) + (salary.doubleOverTime);
-    };
+    }
 
     const calculateNetSalary = (salary) => {
         const totalDeduction = calculateTotalDeduction(salary);
@@ -121,7 +122,7 @@ export default function AdminSalarySlips() {
 
     return (
         <div>
-            <AdminNavBar />
+            <SuperAdminNavBar />
 
             <div className="mt-3">
                 <Container fluid>

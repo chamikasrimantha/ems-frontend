@@ -31,6 +31,10 @@ export default function SuperAdminNavBar() {
     //     navigate('/superadmin/months');
     // }
 
+    const analysis = () => {
+        navigate('/superadmin/analysis');
+    }
+
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
@@ -67,6 +71,7 @@ export default function SuperAdminNavBar() {
                         <Nav.Link href="" onClick={employees} style={{ color: 'white', marginRight: '30px' }}>Employees</Nav.Link>
                         <Nav.Link href="" onClick={salaries} style={{ color: 'white', marginRight: '30px' }}>Salaries</Nav.Link>
                         <Nav.Link href="" onClick={admins} style={{ color: 'white', marginRight: '30px' }}>Admins</Nav.Link>
+                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>Analysis</Nav.Link>
                     </Nav>
                     <Nav>
                         {isSignedIn ? (

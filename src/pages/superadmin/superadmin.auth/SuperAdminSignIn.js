@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { superAdminLogin } from '../../../services/api/user.service';
+import { superAdminLogin, getUsersById } from '../../../services/api/user.service';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
@@ -24,8 +24,22 @@ export default function SuperAdminSignIn() {
                 localStorage.setItem("token", token);
                 localStorage.setItem("userId", userId);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                alert("SignIn Successful");
-                navigate("/superadmin/dashboard");
+
+                // Now check the user role
+                const userResponse = await getUsersById(userId);
+                const { role } = userResponse.data;
+
+                if (role === 'SUPERADMIN') {
+                    alert("SignIn Successful");
+                    navigate("/superadmin/dashboard");
+                } else {
+                    alert("Unauthorized! Only SUPERADMINs can log in.");
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("userId");
+                }
+
+                // alert("SignIn Successful");
+                // navigate("/superadmin/dashboard");
             } else {
                 alert("Username or password is incorrect!");
                 console.log("LogIn Error");

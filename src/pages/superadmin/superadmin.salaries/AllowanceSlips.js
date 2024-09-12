@@ -9,9 +9,10 @@ import { getAllMonths } from '../../../services/api/month.service';
 import { getEmployeesByDepartments } from '../../../services/api/employee.service';
 import { getAllDepartments } from '../../../services/api/department.service';
 import ReactToPrint from 'react-to-print';
-import SlipPrint from './SlipPrint';
+import AllowanceSlipPrint from '../../admin/admin.salaries/AllowanceSlipPrint';
+import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
 
-export default function AdminSalarySlips() {
+export default function AllowanceSlips() {
 
     const isMobile = useMediaQuery('(max-width: 600px)');
     const [months, setMonths] = useState([]);
@@ -112,7 +113,7 @@ export default function AdminSalarySlips() {
 
     const calculateTotalAddition = (salary) => {
         return ((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5) + (salary.doubleOverTime);
-    };
+    }
 
     const calculateNetSalary = (salary) => {
         const totalDeduction = calculateTotalDeduction(salary);
@@ -121,7 +122,7 @@ export default function AdminSalarySlips() {
 
     return (
         <div>
-            <AdminNavBar />
+            <SuperAdminNavBar />
 
             <div className="mt-3">
                 <Container fluid>
@@ -129,7 +130,7 @@ export default function AdminSalarySlips() {
                     <Row className="justify-content-center">
                         <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={square1Style}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary slip details</h4>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Allowance slip details</h4>
                                 {/* <Box>
                                     <Button
                                         variant="contained"
@@ -153,7 +154,7 @@ export default function AdminSalarySlips() {
                         <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 {/* <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Get Salary Summary Details</h4> */}
-                                <p style={{ fontSize: '1rem' }}>Please select month, department & type and then click on 'Load' button to retrieve salary slips.</p>
+                                <p style={{ fontSize: '1rem' }}>Please select month, department & type and then click on 'Load' button to retrieve allowance slips.</p>
                                 <Form.Control
                                     as="select"
                                     value={selectedMonth}
@@ -206,7 +207,7 @@ export default function AdminSalarySlips() {
                     <Row className="justify-content-center mt-3">
                         <Col md={12} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
-                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Salary slips</h4>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Allowance slips</h4>
                                 <p>{departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} - {selectedMonthName} | {employeeType} Staff</p>
                                 {salaries.map(salary => (
                                     <Table striped bordered hover responsive className="mt-3" style={{ fontSize: '0.85rem', border: '2px solid black', width: '80%', margin: '0 auto', marginBottom: '40px' }}>
@@ -216,12 +217,17 @@ export default function AdminSalarySlips() {
                                                     Benjarong Pvt Ltd - {departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''}
                                                 </th>
                                             </tr>
+                                            <tr>
+                                                <th colSpan="4" style={{ backgroundColor: '', color: 'black', textAlign: 'left', fontSize: '1rem', padding: '10px' }}>
+                                                    CASH/ ONLINE/ CHEQUE PAYMENT VOUCHER
+                                                </th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Employee Name:</td>
+                                                <td style={{ padding: '10px' }}>Employee Name:</td>
                                                 <td>{salary.employeeEntity.surname} {salary.employeeEntity.firstname} {salary.employeeEntity.lastname}</td>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Date:</td>
+                                                <td style={{ padding: '10px' }}>Date:</td>
                                                 <td>
                                                     <Form.Control
                                                         type="date"
@@ -233,91 +239,44 @@ export default function AdminSalarySlips() {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>EPF No:</td>
-                                                <td>{salary.employeeEntity.epf}</td>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Month:</td>
+                                                <td style={{ padding: '10px' }}>Designation:</td>
+                                                <td>{salary.employeeEntity.designation}</td>
+                                                <td style={{ padding: '10px' }}>Month:</td>
                                                 <td>{salary.monthEntity.name}</td>
                                             </tr>
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Basic Salary:</td>
-                                                <td>{salary.employeeEntity.basicSalary}</td>
-                                                <td colSpan="2" style={{ padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>Additions</td>
-                                                {/* <td>[Additions]</td> */}
-                                            </tr>
-                                            <tr>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Budgetary Relief Allowance:</td>
-                                                <td>{salary.employeeEntity.budgetaryReliefAllowance}</td>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Normal OT:</td>
-                                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
-                                            </tr>
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>No Pay:</td>
-                                                <td>{salary.noPay}</td>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Double OT:</td>
-                                                <td>{salary.doubleOverTime}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Salary:</td>
-                                                <td>{salary.totalForEpf}</td>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Additions:</td>
-                                                <td colSpan="2">{calculateTotalAddition(salary)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Gross Pay:</td>
-                                                <td colSpan="2">{salary.grossSalary}</td>
-                                            </tr>
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td colSpan="4" style={{ padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>Less (Deductions)</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>EPF 8%</td>
-                                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>APIIT:</td>
-                                                <td>
-                                                    <Form.Control
-                                                        type="number"
-                                                        style={{ height: '30px' }}
-                                                        value={apiitValue[salary.id] || 0.00}
-                                                        onChange={(e) => handleApiitChange(salary.id, e.target.value)}
-                                                    // className="mb-3"
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Salary Advance:</td>
-                                                <td>{salary.salaryAdvance}</td>
-                                                <td style={{ padding: '10px', fontWeight: '' }}>Loan:</td>
-                                                <td>{salary.staffLoan}</td>
-                                            </tr>
-                                            {/* <tr>
-                                            <td style={{ padding: '10px', fontWeight: '' }}>Stamps:</td>
-                                            <td></td>
-                                            <td style={{ padding: '10px', fontWeight: '' }}>Other Deduction:</td>
-                                            <td></td>
-                                        </tr> */}
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total Deduction:</td>
-                                                <td colSpan="2">{parseFloat(calculateTotalDeduction(salary)).toFixed(2)}</td>
-                                            </tr>
-                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Net Salary:</td>
-                                                <td colSpan="2">{parseFloat(calculateNetSalary(salary)).toFixed(2)}</td>
-                                            </tr>
+
                                             <tr style={{ height: '20px' }}>
-                                                <td colSpan="2">
-                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
-                                                        EPF 12%: {parseFloat(salary.twelvePresentEpf).toFixed(2)}
-                                                    </td>
-                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
-                                                        EPF 20%: {parseFloat(salary.twentyPresentEpf).toFixed(2)}
-                                                    </td>
-                                                    <td style={{ padding: '10px', textAlign: 'left' }}>
-                                                        ETF 3%: {parseFloat(salary.threePresentEtf).toFixed(2)}
-                                                    </td>
+                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold', textAlign: 'center' }}>Particulars</th>
+                                                <th colSpan="2" style={{ padding: '10px', fontWeight: 'bold', textAlign: 'center' }}>Amount</th>
+                                            </tr>
+
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Special allowance: </td>
+                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.specialAllowance).toFixed(2)}</td>
+                                            </tr>
+
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Travelling allowance: </td>
+                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.travellingAllowance).toFixed(2)}</td>
+                                            </tr>
+
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Service charges: </td>
+                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.serviceCharges).toFixed(2)}</td>
+                                            </tr>
+
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total: </td>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>{parseFloat((salary.specialAllowance) + (salary.travellingAllowance) + (salary.serviceCharges)).toFixed(2)}</td>
+                                            </tr>
+
+                                            <tr style={{ height: '20px' }}>
+                                                <td colSpan="2" style={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}>
+                                                    Prepared by: ____________________________________
                                                 </td>
 
                                                 <td colSpan="2" style={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}>
-                                                    Signature: ____________________________________
+                                                    Received by: ____________________________________
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -330,13 +289,9 @@ export default function AdminSalarySlips() {
                                     pageStyle={`@page { margin: 20mm !important; }`}
                                 />
                                 <div style={{ display: 'none' }}>
-                                    <SlipPrint departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} salaries={salaries.map(salary => ({
+                                    <AllowanceSlipPrint departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} salaries={salaries.map(salary => ({
                                         ...salary,
                                         dateValue: dateValue[salary.id] || '',
-                                        apiitValue: apiitValue[salary.id] || 0,
-                                        totalDeduction: calculateTotalDeduction(salary),
-                                        totalAddition: calculateTotalAddition(salary),
-                                        netSalary: calculateNetSalary(salary),
                                     }))} ref={printRef} />
                                 </div>
                             </div>

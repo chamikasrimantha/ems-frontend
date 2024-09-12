@@ -27,7 +27,7 @@ const SalarySummarySheetPrint = React.forwardRef(({ salaries, monthName, departm
         <div ref={ref} style={{ width: '100%', padding: '10px' }}>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd</h4>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary Sumamry Sheet {monthName} | {type} Staff</h4>
-            <Table striped bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
+            <Table bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
                 <thead>
                     <tr>
                         <th>Employee ID</th>
@@ -61,9 +61,7 @@ const SalarySummarySheetPrint = React.forwardRef(({ salaries, monthName, departm
                     ))}
                     {/* Total row */}
                     <tr style={{ fontWeight: 'bold' }}>
-                        <td colSpan="4">Totals</td>
-                        <td>{totals.noOfDays.toFixed(2)}</td>
-                        <td> N/A </td>
+                        <td colSpan="6">Totals</td>
                         <td>{totals.travellingAllowance.toFixed(2)}</td>
                         <td>{totals.specialAllowance.toFixed(2)}</td>
                         <td>{totals.balancePay.toFixed(2)}</td>

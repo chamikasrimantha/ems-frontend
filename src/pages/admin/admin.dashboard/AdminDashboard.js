@@ -7,7 +7,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import AdminNavBar from '../../../components/navbar/AdminNavBar';
 import Footer from '../../../components/footer/Footer';
-import EmployeeCard from '../../../components/employee/EmployeeCard';
+import EmployeeCardAdminSide from '../../../components/employee/EmployeeCardAdminSide';
 
 export default function AdminDashboard() {
 
@@ -110,13 +110,13 @@ export default function AdminDashboard() {
                 <Row style={{ marginLeft: '4%', marginRight: '4%' }} xs={1} md={3} className="g-1 justify-content-center">
                     {employees.slice(-3).map((employee, index) => (
                         <Col key={index} className="d-flex justify-content-center">
-                            <EmployeeCard employee={employee} />
+                            <EmployeeCardAdminSide employee={employee} />
                         </Col>
                     ))}
                 </Row>
             </Container>
 
-            <br/><br/><br/>
+            <br /><br /><br />
             <Footer />
         </div>
     )

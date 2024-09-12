@@ -24,8 +24,8 @@ const TransferListPrint = React.forwardRef(({ salaries, monthName, departmentNam
                         <th>Employee Name</th>
                         <th>Bank</th>
                         <th>Account No</th>
-                        <th>Amount</th>
                         <th>Mobile No</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>

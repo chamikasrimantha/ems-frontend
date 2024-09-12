@@ -4,7 +4,7 @@ import { Card, CardContent, CardActions } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export default function EmployeeCard({ employee }) {
+export default function EmployeeCardAdminSide({ employee }) {
     const {
         id,
         firstname,
@@ -110,7 +110,7 @@ export default function EmployeeCard({ employee }) {
                     </div> */}
                 </CardContent>
                 <CardActions style={buttonContainerStyle}>
-                    <Link to={`/superadmin/employees/${id}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/admin/employees/${id}`} style={{ textDecoration: 'none' }}>
                         <Button variant="contained" color="primary" size="small">
                             View
                         </Button>

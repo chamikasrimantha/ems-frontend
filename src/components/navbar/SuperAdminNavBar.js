@@ -59,7 +59,7 @@ export default function SuperAdminNavBar() {
         <Navbar expand="lg" style={{ backgroundColor: '#1a1a2e', minHeight: '70px' }} variant="dark">
             <Container>
                 <Navbar.Brand href="" onClick={dashboard} style={{ color: 'white', fontStyle: 'italic', fontWeight: 500, cursor: 'pointer' }}>
-                    BENJARONG.lk
+                    EMS
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

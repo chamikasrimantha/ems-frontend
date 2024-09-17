@@ -42,7 +42,7 @@ export const adminRegister = async (data) => {
 export const adminLogin = async (data) => {
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/admin/login`,
+            `http://51.21.130.21:8080/auth/admin/login`,
             data
         );
         return response;

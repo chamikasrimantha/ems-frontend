@@ -121,7 +121,7 @@ export default function AdminSignIn() {
                     position: "absolute",
                     bottom: 0,
                 }}>
-                    <Typography variant="body2">© EMS - Benjarong Pvt Ltd. All rights reserved.</Typography>
+                    <Typography variant="body2">© EMS . All rights reserved.</Typography>
                 </footer>
             </div>
         </div>

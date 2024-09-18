@@ -37,6 +37,8 @@ import SuperAdminAnalysis from './pages/superadmin/superadmin.analysis/SuperAdmi
 import AdminAnalysis from './pages/admin/admin.analysis/AdminAnalysis';
 import SuperAdminProtectedRoutes from './utils/SuperAdminProtectedRoutes';
 import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
+import SuperAdminProfile from './pages/superadmin/superadmin.profile/SuperAdminProfile';
+import AdminProfile from './pages/admin/admin.profile/AdminProfile';
 
 function App() {
   return (
@@ -65,6 +67,7 @@ function App() {
             <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
             <Route path='/superadmin/salaries/transfers' element={<SalaryTransferList />} />
             <Route path='/superadmin/analysis' element={<SuperAdminAnalysis />} />
+            <Route path='/superadmin/profile' element={<SuperAdminProfile />} />
           </Route>
 
           <Route path='/admin/signin' element={<AdminSignIn />} />
@@ -84,6 +87,7 @@ function App() {
             <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
             <Route path='/admin/create-salary' element={<AdminAddSalary />} />
             <Route path='/admin/analysis' element={<AdminAnalysis />} />
+            <Route path='/admin/profile' element={<AdminProfile />} />
           </Route>
 
         </Routes>

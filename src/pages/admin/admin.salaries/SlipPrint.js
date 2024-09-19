@@ -3,6 +3,13 @@ import { Table } from 'react-bootstrap';
 
 const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
 
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     const tableStyle = {
         width: '100%',
         marginBottom: '5px',
@@ -31,7 +38,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
     return (
         <div ref={ref} style={{ padding: '5px' }}>
             {salaries.map((salary, index) => (
-                <div key={salary.id} style={{ pageBreakAfter: (index + 1) % 2 === 0 ? 'always' : 'auto', marginBottom: '40px' }}>
+                <div key={salary.id} style={{ pageBreakAfter: (index + 1) % 2 === 0 ? 'always' : 'auto', marginBottom: '30px' }}>
                     <Table bordered hover size="sm" style={tableStyle}>
                         <thead>
                             <tr>
@@ -55,64 +62,64 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td style={cellStyle}>Basic Salary:</td>
-                                <td>{salary.employeeEntity.basicSalary}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.employeeEntity.basicSalary)}</td>
                                 <td style={{ ...cellStyle, fontWeight: 'bold', textAlign: 'center' }} colSpan="2">Additions</td>
                             </tr>
                             <tr>
                                 <td style={cellStyle}>Budgetary Relief Allowance:</td>
-                                <td>{salary.employeeEntity.budgetaryReliefAllowance}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.employeeEntity.budgetaryReliefAllowance)}</td>
                                 <td style={cellStyle}>Normal OT:</td>
-                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td style={cellStyle}>No Pay:</td>
-                                <td>{salary.noPay}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.noPay)}</td>
                                 <td style={cellStyle}>Double OT:</td>
-                                <td>{salary.doubleOverTime}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.doubleOverTime)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td style={{ ...cellStyle, fontWeight: 'bold' }}>Total Salary:</td>
-                                <td>{salary.totalForEpf}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.totalForEpf)}</td>
                                 <td style={{ ...cellStyle, fontWeight: 'bold' }}>Total Additions:</td>
-                                <td>{salary.totalAddition}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.totalAddition)}</td>
                             </tr>
                             <tr>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Gross Pay:</td>
-                                <td colSpan="2">{salary.grossSalary}</td>
+                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(salary.grossSalary)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td colSpan="4" style={{ ...cellStyle, fontWeight: 'bold', textAlign: 'center' }}>Less (Deductions)</td>
                             </tr>
                             <tr>
                                 <td style={cellStyle}>EPF 8%</td>
-                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.eightPresentEpf)}</td>
                                 <td style={cellStyle}>APIIT:</td>
-                                <td>{salary.apiitValue}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.apiitValue)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td style={cellStyle}>Salary Advance:</td>
-                                <td>{salary.salaryAdvance}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.salaryAdvance)}</td>
                                 <td style={cellStyle}>Loan:</td>
-                                <td>{salary.staffLoan}</td>
+                                <td style={{textAlign: 'right'}}>{formatNumber(salary.staffLoan)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Total Deduction:</td>
-                                <td colSpan="2">{parseFloat(salary.totalDeduction).toFixed(2)}</td>
+                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(salary.totalDeduction)}</td>
                             </tr>
                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Net Salary:</td>
-                                <td colSpan="2">{parseFloat(salary.netSalary).toFixed(2)}</td>
+                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(salary.netSalary)}</td>
                             </tr>
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2">
                                     <td style={{ padding: '10px', textAlign: 'left' }}>
-                                        EPF 12%: {parseFloat(salary.twelvePresentEpf).toFixed(2)}
+                                        EPF 12%: {formatNumber(salary.twelvePresentEpf)}
                                     </td>
                                     <td style={{ padding: '10px', textAlign: 'left' }}>
-                                        EPF 20%: {parseFloat(salary.twentyPresentEpf).toFixed(2)}
+                                        EPF 20%: {formatNumber(salary.twentyPresentEpf)}
                                     </td>
                                     <td style={{ padding: '10px', textAlign: 'left' }}>
-                                        ETF 3%: {parseFloat(salary.threePresentEtf).toFixed(2)}
+                                        ETF 3%: {formatNumber(salary.threePresentEtf)}
                                     </td>
                                 </td>
 

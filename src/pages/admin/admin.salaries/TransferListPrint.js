@@ -5,6 +5,13 @@ import { Table } from 'react-bootstrap';
 
 const TransferListPrint = React.forwardRef(({ salaries, monthName, departmentName }, ref) => {
 
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     // Calculating the sum for each column
     const totals = salaries.reduce((acc, salary) => {
         acc.totalSalary += parseFloat(salary.totalSalary);
@@ -36,13 +43,13 @@ const TransferListPrint = React.forwardRef(({ salaries, monthName, departmentNam
                             <td>{salary.employeeEntity.bankname}</td>
                             <td>{salary.employeeEntity.bank}</td>
                             <td>{salary.employeeEntity.mobile}</td>
-                            <td>{parseFloat(salary.totalSalary).toFixed(2)}</td>
+                            <td style={{ textAlign: 'right' }}>{formatNumber(salary.totalSalary)}</td>
                         </tr>
                     ))}
                     {/* Total row */}
                     <tr style={{ fontWeight: 'bold' }}>
                         <td colSpan="5">Totals</td>
-                        <td>{totals.totalSalary.toFixed(2)}</td>
+                        <td style={{textAlign: 'right'}}>{formatNumber(totals.totalSalary)}</td>
                     </tr>
                 </tbody>
             </Table>

@@ -13,6 +13,13 @@ import AllowanceSlipPrint from './AllowanceSlipPrint';
 
 export default function AdminAllowanceSlips() {
 
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     const isMobile = useMediaQuery('(max-width: 600px)');
     const [months, setMonths] = useState([]);
     const [selectedMonth, setSelectedMonth] = useState('');
@@ -251,22 +258,22 @@ export default function AdminAllowanceSlips() {
 
                                             <tr style={{ height: '20px' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Special allowance: </td>
-                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.specialAllowance).toFixed(2)}</td>
+                                                <td colSpan="2" style={{ padding: '10px', textAlign: 'right' }}>{formatNumber(salary.specialAllowance)}</td>
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Travelling allowance: </td>
-                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.travellingAllowance).toFixed(2)}</td>
+                                                <td colSpan="2" style={{ padding: '10px', textAlign: 'right' }}>{formatNumber(salary.travellingAllowance)}</td>
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Service charges: </td>
-                                                <td colSpan="2" style={{ padding: '10px' }}>{parseFloat(salary.serviceCharges).toFixed(2)}</td>
+                                                <td colSpan="2" style={{ padding: '10px', textAlign: 'right' }}>{formatNumber(salary.serviceCharges)}</td>
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total: </td>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>{parseFloat((salary.specialAllowance) + (salary.travellingAllowance) + (salary.serviceCharges)).toFixed(2)}</td>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold', textAlign: 'right' }}>{formatNumber((salary.specialAllowance) + (salary.travellingAllowance) + (salary.serviceCharges))}</td>
                                             </tr>
 
                                             <tr style={{ height: '20px' }}>

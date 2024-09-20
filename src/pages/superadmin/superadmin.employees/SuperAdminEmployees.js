@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getAllEmployees } from '../../../services/api/employee.service';
-import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container, Table } from 'react-bootstrap';
 import { ButtonBase } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
+import ReactToPrint from 'react-to-print';
+import PrintEmpByEPFNoOrder from '../../admin/admin.employees/PrintEmpByEPFNoOrder'; // Import the print component
+import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function SuperAdminEmployees() {
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
 
     const [employees, setEmployees] = useState([]);
+    const [sortedEmployees, setSortedEmployees] = useState([]); // Add sorted employees state
 
     const fetchAllEmployees = async () => {
         const response = await getAllEmployees();
         setEmployees(response.data);
-        console.log(response);
+        setSortedEmployees(response.data); // Initialize sorted employees with fetched data
     }
 
     useEffect(() => {
@@ -23,18 +32,27 @@ export default function SuperAdminEmployees() {
 
     const navigate = useNavigate();
 
-    const handleClickOpen = () => {
-        navigate("/superadmin/add-employee")
-    };
-
     const handleClickOpenGet = () => {
-        navigate("/superadmin/employees-by-department");
+        navigate("/admin/employees-by-department");
     }
 
     const handleViewClick = (id) => {
-        // Handle the view button click
         console.log('View employee with ID:', id);
     };
+
+    // Function to sort employees by EPF number
+    const handleSortByEPF = () => {
+        const filtered = employees.filter(employee => employee.epf); // Filter out employees without an EPF number
+        const sorted = [...filtered].sort((a, b) => a.epf - b.epf); // Sort by EPF number
+        setSortedEmployees(sorted); // Set the sorted employees
+    }
+
+    // Reference for printing
+    const componentRef = useRef();
+
+    const handleClickOpen = () => {
+        navigate("/superadmin/add-employee");
+    }
 
     return (
         <div>
@@ -67,21 +85,46 @@ export default function SuperAdminEmployees() {
 
             <hr style={{ marginLeft: '6%', marginRight: '6%' }} />
 
-
             {/* Top */}
             <Container fluid>
                 <div className="d-flex justify-content-between align-items-center mt-4" style={{ marginLeft: '5%', marginRight: '5%' }}>
                     <div>
-                        <h4 style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '1.25rem' }}>Manage employees</h4>
-                        <p style={{ textAlign: 'left' }}>Click on each employee to edit/ update or delete</p>
+                        <h4 style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '1.25rem' }}>View employees</h4>
+                        <p style={{ textAlign: 'left' }}>Click on view button to view employee details</p>
                     </div>
                     <div>
+
+                        <Button
+                            style={{ backgroundColor: 'lightsalmon', border: 'none' }}
+                            onClick={fetchAllEmployees} // Sort employees by EPF when clicked
+                        >
+                            Sort by Emp ID
+                        </Button>
+
+                        <Button
+                            style={{ marginLeft: '10px', backgroundColor: 'lightcoral', border: 'none'}}
+                            onClick={handleSortByEPF} // Sort employees by EPF when clicked
+                        >
+                            Sort by EPF No
+                        </Button>
+
+                        {/* React-to-print Button */}
+                        <ReactToPrint
+                            trigger={() => (
+                                <Button variant="secondary" style={{ marginLeft: '10px' }}>
+                                    Print
+                                </Button>
+                            )}
+                            content={() => componentRef.current} // Pass sorted component for printing
+                        />
+
                         <ButtonBase
                             style={{
                                 backgroundColor: '#184D9D',
                                 color: 'white',
                                 borderRadius: '8px',
                                 padding: '8px 12px',
+                                marginLeft: '10px',
                                 border: 'none',
                                 cursor: 'pointer'
                             }}
@@ -98,25 +141,29 @@ export default function SuperAdminEmployees() {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>EPF</th>
                             <th>Name</th>
-                            <th>Department</th>
                             <th>Designation</th>
-                            <th>Email</th>
                             <th>Phone No</th>
+                            <th>Basic</th>
+                            <th>Bud. Rel. Allow.</th>
+                            <th>Special Allowance</th>
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {employees.map((employee) => (
+                        {sortedEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <td>{employee.id}</td>
-                                <td>{`${employee.firstname} ${employee.lastname}`}</td>
-                                <td>{employee?.departmentEntity?.name}</td>
-                                <td>{employee.designation}</td>
-                                <td>{employee.email}</td>
+                                <td>{employee.epf}</td>
+                                <td style={{ textAlign: 'left' }}>{`${employee.firstname} ${employee.lastname}`}</td>
+                                <td style={{ textAlign: 'left' }}>{employee.designation}</td>
                                 <td>{employee.mobile}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
                                 <td>
-                                    <Link to={`/superadmin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
+                                    <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                         <Button
                                             variant="primary"
                                             onClick={() => handleViewClick(employee.id)}
@@ -133,8 +180,12 @@ export default function SuperAdminEmployees() {
 
             <br /><br /><br />
 
-            <Footer />
+            {/* Hidden component for printing */}
+            <div style={{ display: 'none' }}>
+                <PrintEmpByEPFNoOrder ref={componentRef} employees={sortedEmployees} />
+            </div>
 
+            <Footer />
         </div>
     )
 }

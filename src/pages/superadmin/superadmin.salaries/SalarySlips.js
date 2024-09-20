@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import AdminNavBar from '../../../components/navbar/AdminNavBar';
 import Footer from '../../../components/footer/Footer';
 import { Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { Box, Button, useMediaQuery } from '@mui/material';
@@ -13,6 +12,13 @@ import SlipPrint from '../../admin/admin.salaries/SlipPrint';
 import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
 
 export default function SalarySlips() {
+
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
 
     const isMobile = useMediaQuery('(max-width: 600px)');
     const [months, setMonths] = useState([]);
@@ -113,7 +119,7 @@ export default function SalarySlips() {
 
     const calculateTotalAddition = (salary) => {
         return ((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5) + (salary.doubleOverTime);
-    }
+    };
 
     const calculateNetSalary = (salary) => {
         const totalDeduction = calculateTotalDeduction(salary);
@@ -241,38 +247,38 @@ export default function SalarySlips() {
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Basic Salary:</td>
-                                                <td>{salary.employeeEntity.basicSalary}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.employeeEntity.basicSalary)}</td>
                                                 <td colSpan="2" style={{ padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>Additions</td>
                                                 {/* <td>[Additions]</td> */}
                                             </tr>
                                             <tr>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Budgetary Relief Allowance:</td>
-                                                <td>{salary.employeeEntity.budgetaryReliefAllowance}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.employeeEntity.budgetaryReliefAllowance)}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Normal OT:</td>
-                                                <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5)}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>No Pay:</td>
-                                                <td>{salary.noPay}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.noPay)}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Double OT:</td>
-                                                <td>{salary.doubleOverTime}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.doubleOverTime)}</td>
                                             </tr>
                                             <tr>
                                                 <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Salary:</td>
-                                                <td>{salary.totalForEpf}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.totalForEpf)}</td>
                                                 <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Additions:</td>
-                                                <td colSpan="2">{calculateTotalAddition(salary)}</td>
+                                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateTotalAddition(salary))}</td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Gross Pay:</td>
-                                                <td colSpan="2">{salary.grossSalary}</td>
+                                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(salary.grossSalary)}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td colSpan="4" style={{ padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>Less (Deductions)</td>
                                             </tr>
                                             <tr>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>EPF 8%</td>
-                                                <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.eightPresentEpf)}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>APIIT:</td>
                                                 <td>
                                                     <Form.Control
@@ -286,9 +292,9 @@ export default function SalarySlips() {
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Salary Advance:</td>
-                                                <td>{salary.salaryAdvance}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.salaryAdvance)}</td>
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Loan:</td>
-                                                <td>{salary.staffLoan}</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.staffLoan)}</td>
                                             </tr>
                                             {/* <tr>
                                             <td style={{ padding: '10px', fontWeight: '' }}>Stamps:</td>
@@ -298,11 +304,11 @@ export default function SalarySlips() {
                                         </tr> */}
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total Deduction:</td>
-                                                <td colSpan="2">{parseFloat(calculateTotalDeduction(salary)).toFixed(2)}</td>
+                                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateTotalDeduction(salary))}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
                                                 <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Net Salary:</td>
-                                                <td colSpan="2">{parseFloat(calculateNetSalary(salary)).toFixed(2)}</td>
+                                                <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateNetSalary(salary))}</td>
                                             </tr>
                                             <tr style={{ height: '20px' }}>
                                                 <td colSpan="2">

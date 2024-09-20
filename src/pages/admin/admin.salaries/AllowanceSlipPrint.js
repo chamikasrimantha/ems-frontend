@@ -3,6 +3,13 @@ import { Table } from 'react-bootstrap';
 
 const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
 
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     const tableStyle = {
         width: '100%',
         height: '30%',
@@ -73,22 +80,22 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
 
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Special allowance: </td>
-                                <td colSpan="2" style={{ ...cellStyle }}>{parseFloat(salary.specialAllowance).toFixed(2)}</td>
+                                <td colSpan="2" style={{ ...cellStyle, textAlign: 'right' }}>{formatNumber(salary.specialAllowance)}</td>
                             </tr>
 
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Travelling allowance: </td>
-                                <td colSpan="2" style={{ ...cellStyle }}>{parseFloat(salary.travellingAllowance).toFixed(2)}</td>
+                                <td colSpan="2" style={{ ...cellStyle, textAlign: 'right' }}>{formatNumber(salary.travellingAllowance)}</td>
                             </tr>
 
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Service charges: </td>
-                                <td colSpan="2" style={{ ...cellStyle }}>{parseFloat(salary.serviceCharges).toFixed(2)}</td>
+                                <td colSpan="2" style={{ ...cellStyle, textAlign: 'right' }}>{formatNumber(salary.serviceCharges)}</td>
                             </tr>
 
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>Total: </td>
-                                <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold' }}>{parseFloat((salary.specialAllowance) + (salary.travellingAllowance) + (salary.serviceCharges)).toFixed(2)}</td>
+                                <td colSpan="2" style={{ ...cellStyle, fontWeight: 'bold', textAlign: 'right' }}>{formatNumber((salary.specialAllowance) + (salary.travellingAllowance) + (salary.serviceCharges))}</td>
                             </tr>
 
                             <tr style={{ height: '20px' }}>

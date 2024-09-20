@@ -2,6 +2,14 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName, type }, ref) => {
+    // Function to format numbers with commas
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     // Calculating the sum for each column
     const totals = salaries.reduce((acc, salary) => {
         acc.basicSalary += parseFloat(salary.basicSalary);
@@ -85,49 +93,49 @@ const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName
                             <td>{salary.employeeEntity.firstname} {salary.employeeEntity.lastname}</td>
                             <td>{salary.employeeEntity.departmentEntity.name}</td>
                             <td>{salary.employeeEntity.epf}</td>
-                            <td>{parseFloat(salary.basicSalary).toFixed(2)}</td>
-                            <td>{parseFloat(salary.budgetaryReliefAllowance).toFixed(2)}</td>
-                            <td>{parseFloat(salary.noPay).toFixed(2)}</td>
-                            <td>{parseFloat(salary.totalForEpf).toFixed(2)}</td>
-                            <td>{parseFloat((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5).toFixed(2)}</td>
-                            <td>{parseFloat(salary.doubleOverTime).toFixed(2)}</td>
-                            <td>{parseFloat(salary.grossSalary).toFixed(2)}</td>
-                            <td>{parseFloat(salary.eightPresentEpf).toFixed(2)}</td>
-                            <td>{parseFloat(salary.cashFloat).toFixed(2)}</td>
-                            <td>{parseFloat(salary.staffLoan).toFixed(2)}</td>
-                            <td>{parseFloat(salary.staffDebtors).toFixed(2)}</td>
-                            <td>{parseFloat(salary.salaryAdvance).toFixed(2)}</td>
-                            <td>{parseFloat(salary.totalDetuction).toFixed(2)}</td>
-                            <td>{parseFloat(salary.balancePay).toFixed(2)}</td>
-                            <td>{parseFloat(salary.twelvePresentEpf).toFixed(2)}</td>
-                            <td>{parseFloat(salary.threePresentEtf).toFixed(2)}</td>
-                            <td>{parseFloat(salary.twentyPresentEpf).toFixed(2)}</td>
-                            <td>{parseFloat(salary.fiftyPresentOnBasic).toFixed(2)}</td>
-                            <td>{parseFloat(salary.totalSalary).toFixed(2)}</td>
+                            <td>{formatNumber(salary.basicSalary)}</td>
+                            <td>{formatNumber(salary.budgetaryReliefAllowance)}</td>
+                            <td>{formatNumber(salary.noPay)}</td>
+                            <td>{formatNumber(salary.totalForEpf)}</td>
+                            <td>{formatNumber((((salary.basicSalary + salary.budgetaryReliefAllowance) / 240) * salary.normalOverTime) * 1.5)}</td>
+                            <td>{formatNumber(salary.doubleOverTime)}</td>
+                            <td>{formatNumber(salary.grossSalary)}</td>
+                            <td>{formatNumber(salary.eightPresentEpf)}</td>
+                            <td>{formatNumber(salary.cashFloat)}</td>
+                            <td>{formatNumber(salary.staffLoan)}</td>
+                            <td>{formatNumber(salary.staffDebtors)}</td>
+                            <td>{formatNumber(salary.salaryAdvance)}</td>
+                            <td>{formatNumber(salary.totalDetuction)}</td>
+                            <td>{formatNumber(salary.balancePay)}</td>
+                            <td>{formatNumber(salary.twelvePresentEpf)}</td>
+                            <td>{formatNumber(salary.threePresentEtf)}</td>
+                            <td>{formatNumber(salary.twentyPresentEpf)}</td>
+                            <td>{formatNumber(salary.fiftyPresentOnBasic)}</td>
+                            <td>{formatNumber(salary.totalSalary)}</td>
                         </tr>
                     ))}
                     {/* Total row */}
                     <tr style={{ fontWeight: 'bold' }}>
                         <td colSpan="4">Totals</td>
-                        <td>{totals.basicSalary.toFixed(2)}</td>
-                        <td>{totals.budgetaryReliefAllowance.toFixed(2)}</td>
-                        <td>{totals.noPay.toFixed(2)}</td>
-                        <td>{totals.totalForEpf.toFixed(2)}</td>
-                        <td>{totals.normalOverTime.toFixed(2)}</td>
-                        <td>{totals.doubleOverTime.toFixed(2)}</td>
-                        <td>{totals.grossSalary.toFixed(2)}</td>
-                        <td>{totals.eightPresentEpf.toFixed(2)}</td>
-                        <td>{totals.cashFloat.toFixed(2)}</td>
-                        <td>{totals.staffLoan.toFixed(2)}</td>
-                        <td>{totals.staffDebtors.toFixed(2)}</td>
-                        <td>{totals.salaryAdvance.toFixed(2)}</td>
-                        <td>{totals.totalDeduction.toFixed(2)}</td>
-                        <td>{totals.balancePay.toFixed(2)}</td>
-                        <td>{totals.twelvePresentEpf.toFixed(2)}</td>
-                        <td>{totals.threePresentEtf.toFixed(2)}</td>
-                        <td>{totals.twentyPresentEpf.toFixed(2)}</td>
-                        <td>{totals.fiftyPresentOnBasic.toFixed(2)}</td>
-                        <td>{totals.totalSalary.toFixed(2)}</td>
+                        <td>{formatNumber(totals.basicSalary)}</td>
+                        <td>{formatNumber(totals.budgetaryReliefAllowance)}</td>
+                        <td>{formatNumber(totals.noPay)}</td>
+                        <td>{formatNumber(totals.totalForEpf)}</td>
+                        <td>{formatNumber(totals.normalOverTime)}</td>
+                        <td>{formatNumber(totals.doubleOverTime)}</td>
+                        <td>{formatNumber(totals.grossSalary)}</td>
+                        <td>{formatNumber(totals.eightPresentEpf)}</td>
+                        <td>{formatNumber(totals.cashFloat)}</td>
+                        <td>{formatNumber(totals.staffLoan)}</td>
+                        <td>{formatNumber(totals.staffDebtors)}</td>
+                        <td>{formatNumber(totals.salaryAdvance)}</td>
+                        <td>{formatNumber(totals.totalDeduction)}</td>
+                        <td>{formatNumber(totals.balancePay)}</td>
+                        <td>{formatNumber(totals.twelvePresentEpf)}</td>
+                        <td>{formatNumber(totals.threePresentEtf)}</td>
+                        <td>{formatNumber(totals.twentyPresentEpf)}</td>
+                        <td>{formatNumber(totals.fiftyPresentOnBasic)}</td>
+                        <td>{formatNumber(totals.totalSalary)}</td>
                     </tr>
                 </tbody>
             </Table>

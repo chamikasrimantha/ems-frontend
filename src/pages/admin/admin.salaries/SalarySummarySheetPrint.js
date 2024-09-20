@@ -5,6 +5,14 @@ import { Table } from 'react-bootstrap';
 
 const SalarySummarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName, type }, ref) => {
 
+    // Function to format numbers with commas
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     // Calculating the sum for each column
     const totals = salaries.reduce((acc, salary) => {
         acc.noOfDays += parseFloat(salary.noOfDays);
@@ -50,23 +58,23 @@ const SalarySummarySheetPrint = React.forwardRef(({ salaries, monthName, departm
                             <td>{salary.employeeEntity.firstname} {salary.employeeEntity.lastname}</td>
                             <td>{salary.employeeEntity.departmentEntity.name}</td>
                             <td>{salary.employeeEntity.epf}</td>
-                            <td>{parseFloat(salary.noOfDays).toFixed(2)}</td>
+                            <td>{formatNumber(salary.noOfDays)}</td>
                             <td>{salary.sc}%</td>
-                            <td>{parseFloat(salary.travellingAllowance).toFixed(2)}</td>
-                            <td>{parseFloat(salary.specialAllowance).toFixed(2)}</td>
-                            <td>{parseFloat(salary.balancePay).toFixed(2)}</td>
-                            <td>{parseFloat(salary.serviceCharges).toFixed(2)}</td>
-                            <td>{parseFloat(salary.totalSalary).toFixed(2)}</td>
+                            <td>{formatNumber(salary.travellingAllowance)}</td>
+                            <td>{formatNumber(salary.specialAllowance)}</td>
+                            <td>{formatNumber(salary.balancePay)}</td>
+                            <td>{formatNumber(salary.serviceCharges)}</td>
+                            <td>{formatNumber(salary.totalSalary)}</td>
                         </tr>
                     ))}
                     {/* Total row */}
                     <tr style={{ fontWeight: 'bold' }}>
                         <td colSpan="6">Totals</td>
-                        <td>{totals.travellingAllowance.toFixed(2)}</td>
-                        <td>{totals.specialAllowance.toFixed(2)}</td>
-                        <td>{totals.balancePay.toFixed(2)}</td>
-                        <td>{totals.serviceCharges.toFixed(2)}</td>
-                        <td>{totals.totalSalary.toFixed(2)}</td>
+                        <td>{formatNumber(totals.travellingAllowance)}</td>
+                        <td>{formatNumber(totals.specialAllowance)}</td>
+                        <td>{formatNumber(totals.balancePay)}</td>
+                        <td>{formatNumber(totals.serviceCharges)}</td>
+                        <td>{formatNumber(totals.totalSalary)}</td>
                     </tr>
                 </tbody>
             </Table>

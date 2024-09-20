@@ -12,6 +12,13 @@ import AdminNavBar from '../../../components/navbar/AdminNavBar';
 
 export default function AdminGetEmployeesByDepartment() {
 
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+    
     const [departments, setDepartments] = useState([]);
     const [selectedDepartments, setSelectedDepartments] = useState([]);
     const [employees, setEmployees] = useState([]);
@@ -104,10 +111,13 @@ export default function AdminGetEmployeesByDepartment() {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>EPF</th>
                             <th>Name</th>
                             <th>Designation</th>
-                            <th>Email</th>
                             <th>Phone No</th>
+                            <th>Basic</th>
+                            <th>Bud. Rel. Allow.</th>
+                            <th>Special Allowance</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -116,10 +126,13 @@ export default function AdminGetEmployeesByDepartment() {
                             employees.map((employee) => (
                                 <tr key={employee.id}>
                                     <td>{employee.id}</td>
-                                    <td>{`${employee.firstname} ${employee.lastname}`}</td>
-                                    <td>{employee.designation}</td>
-                                    <td>{employee.email}</td>
+                                    <td>{employee.epf}</td>
+                                    <td style={{ textAlign: 'left' }}>{`${employee.firstname} ${employee.lastname}`}</td>
+                                    <td style={{ textAlign: 'left' }}>{employee.designation}</td>
                                     <td>{employee.mobile}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
                                     <td>
                                         <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                             <Button variant="primary">View</Button>

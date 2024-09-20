@@ -2,6 +2,14 @@ import React, { forwardRef } from 'react';
 import { Container, Table } from 'react-bootstrap';
 
 const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments, employees }, ref) => {
+
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
     const getDepartmentNames = () => {
         // Ensure this function returns correct department names
         const selectedDeptIds = selectedDepartments.map(id => parseInt(id)); // Convert IDs to integers if needed
@@ -21,16 +29,16 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>EPF</th>
                             <th>Name</th>
                             <th>Designation</th>
-                            <th>Email</th>
                             <th>NIC</th>
                             <th>Phone No</th>
                             <th>DOB</th>
                             <th>WEF</th>
-                            <th>EPF</th>
                             <th>Type</th>
                             <th>Basic Salary</th>
+                            <th>Budgetary Relief Allowance</th>
                             <th>Special Allowance</th>
                         </tr>
                     </thead>
@@ -39,17 +47,17 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
                             employees.map((employee) => (
                                 <tr key={employee.id}>
                                     <td>{employee.id}</td>
+                                    <td>{employee.epf}</td>
                                     <td>{`${employee.firstname} ${employee.lastname}`}</td>
                                     <td>{employee.designation}</td>
-                                    <td>{employee.email}</td>
                                     <td>{employee.nic}</td>
                                     <td>{employee.mobile}</td>
                                     <td>{employee.dob}</td>
                                     <td>{employee.wef}</td>
-                                    <td>{employee.epf}</td>
                                     <td>{employee.type}</td>
-                                    <td>{employee.basicSalary}</td>
-                                    <td>{employee.specialAllowance}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
                                 </tr>
                             ))
                         ) : (

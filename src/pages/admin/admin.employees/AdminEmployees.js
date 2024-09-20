@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getAllEmployees } from '../../../services/api/employee.service';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container, Table } from 'react-bootstrap';
 import { ButtonBase } from '@mui/material';
 import AdminNavBar from '../../../components/navbar/AdminNavBar';
 import Footer from '../../../components/footer/Footer';
+import ReactToPrint from 'react-to-print';
+import PrintEmpByEPFNoOrder from './PrintEmpByEPFNoOrder'; // Import the print component
 
 export default function AdminEmployees() {
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
 
     const [employees, setEmployees] = useState([]);
+    const [sortedEmployees, setSortedEmployees] = useState([]); // Add sorted employees state
 
     const fetchAllEmployees = async () => {
         const response = await getAllEmployees();
         setEmployees(response.data);
-        console.log(response);
+        setSortedEmployees(response.data); // Initialize sorted employees with fetched data
     }
 
     useEffect(() => {
@@ -27,9 +36,18 @@ export default function AdminEmployees() {
     }
 
     const handleViewClick = (id) => {
-        // Handle the view button click
         console.log('View employee with ID:', id);
     };
+
+    // Function to sort employees by EPF number
+    const handleSortByEPF = () => {
+        const filtered = employees.filter(employee => employee.epf); // Filter out employees without an EPF number
+        const sorted = [...filtered].sort((a, b) => a.epf - b.epf); // Sort by EPF number
+        setSortedEmployees(sorted); // Set the sorted employees
+    }
+
+    // Reference for printing
+    const componentRef = useRef();
 
     return (
         <div>
@@ -69,21 +87,32 @@ export default function AdminEmployees() {
                         <h4 style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '1.25rem' }}>View employees</h4>
                         <p style={{ textAlign: 'left' }}>Click on view button to view employee details</p>
                     </div>
-                    {/* <div>
-                        <ButtonBase
-                            style={{
-                                backgroundColor: '#184D9D',
-                                color: 'white',
-                                borderRadius: '8px',
-                                padding: '8px 12px',
-                                border: 'none',
-                                cursor: 'pointer'
-                            }}
-                            onClick={handleClickOpen}
+                    <div>
+
+                        <Button
+                            style={{backgroundColor: 'lightsalmon', border: 'none'}}
+                            onClick={fetchAllEmployees} // Sort employees by EPF when clicked
                         >
-                            <AddCircleOutlineIcon style={{ marginRight: '10px' }} />Add new employee
-                        </ButtonBase>
-                    </div> */}
+                            Sort by Emp ID
+                        </Button>
+
+                        <Button
+                            style={{ marginLeft: '10px', backgroundColor: 'lightcoral', border: 'none'}}
+                            onClick={handleSortByEPF} // Sort employees by EPF when clicked
+                        >
+                            Sort by EPF No
+                        </Button>
+
+                        {/* React-to-print Button */}
+                        <ReactToPrint
+                            trigger={() => (
+                                <Button style={{ marginLeft: '10px', backgroundColor: 'grey', border: 'none' }}>
+                                    Print
+                                </Button>
+                            )}
+                            content={() => componentRef.current} // Pass sorted component for printing
+                        />
+                    </div>
                 </div>
             </Container>
 
@@ -92,23 +121,27 @@ export default function AdminEmployees() {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>EPF</th>
                             <th>Name</th>
-                            <th>Department</th>
                             <th>Designation</th>
-                            <th>Email</th>
                             <th>Phone No</th>
+                            <th>Basic</th>
+                            <th>Bud. Rel. Allow.</th>
+                            <th>Special Allowance</th>
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {employees.map((employee) => (
+                        {sortedEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <td>{employee.id}</td>
-                                <td>{`${employee.firstname} ${employee.lastname}`}</td>
-                                <td>{employee?.departmentEntity?.name}</td>
-                                <td>{employee.designation}</td>
-                                <td>{employee.email}</td>
+                                <td>{employee.epf}</td>
+                                <td style={{ textAlign: 'left' }}>{`${employee.firstname} ${employee.lastname}`}</td>
+                                <td style={{ textAlign: 'left' }}>{employee.designation}</td>
                                 <td>{employee.mobile}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
                                 <td>
                                     <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                         <Button
@@ -127,8 +160,12 @@ export default function AdminEmployees() {
 
             <br /><br /><br />
 
-            <Footer />
+            {/* Hidden component for printing */}
+            <div style={{ display: 'none' }}>
+                <PrintEmpByEPFNoOrder ref={componentRef} employees={sortedEmployees} />
+            </div>
 
+            <Footer />
         </div>
     )
 }

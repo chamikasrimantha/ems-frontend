@@ -33,7 +33,7 @@ export default function SuperAdminEmployees() {
     const navigate = useNavigate();
 
     const handleClickOpenGet = () => {
-        navigate("/admin/employees-by-department");
+        navigate("/superadmin/employees-by-department");
     }
 
     const handleViewClick = (id) => {

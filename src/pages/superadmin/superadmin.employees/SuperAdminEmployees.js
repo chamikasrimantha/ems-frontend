@@ -163,7 +163,7 @@ export default function SuperAdminEmployees() {
                                 <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
                                 <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
                                 <td>
-                                    <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
+                                    <Link to={`/superadmin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                         <Button
                                             variant="primary"
                                             onClick={() => handleViewClick(employee.id)}

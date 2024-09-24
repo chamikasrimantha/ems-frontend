@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getAllEmployees } from '../../../services/api/employee.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Container, Form, Table } from 'react-bootstrap';
 import { ButtonBase } from '@mui/material';
 import AdminNavBar from '../../../components/navbar/AdminNavBar';
 import Footer from '../../../components/footer/Footer';
@@ -18,6 +18,7 @@ export default function AdminEmployees() {
 
     const [employees, setEmployees] = useState([]);
     const [sortedEmployees, setSortedEmployees] = useState([]); // Add sorted employees state
+    const [searchTerm, setSearchTerm] = useState(''); // New state for search term
 
     const fetchAllEmployees = async () => {
         const response = await getAllEmployees();
@@ -48,6 +49,23 @@ export default function AdminEmployees() {
 
     // Reference for printing
     const componentRef = useRef();
+
+    // Function to handle search input
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    // Filter employees based on search term
+    const filteredEmployees = sortedEmployees.filter(employee => {
+        // Ensure employee properties exist before checking
+        return (
+            employee.firstname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.lastname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.epf?.toString().includes(searchTerm) || // Check if EPF is a string
+            employee.mobile?.toString().includes(searchTerm) || // Check if mobile is a string
+            employee.designation?.toLowerCase().includes(searchTerm.toLowerCase()) // check if designation is a string
+        );
+    });
 
     return (
         <div>
@@ -116,6 +134,21 @@ export default function AdminEmployees() {
                 </div>
             </Container>
 
+            {/* Search Bar */}
+            <Container fluid>
+                <div className="d-flex justify-content-between align-items-center" style={{ marginLeft: '5%', marginRight: '5%' }}>
+                    <Form.Group className="">
+                        <Form.Control
+                            type="text"
+                            style={{width: '400px'}}
+                            placeholder="Search for an employee . . ."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
+                    </Form.Group>
+                </div>
+            </Container>
+
             <Container>
                 <Table striped bordered hover style={{ marginBottom: '30px', marginTop: '20px' }}>
                     <thead>
@@ -132,7 +165,7 @@ export default function AdminEmployees() {
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedEmployees.map((employee) => (
+                        {filteredEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <td>{employee.id}</td>
                                 <td>{employee.epf}</td>

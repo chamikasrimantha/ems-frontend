@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getAllEmployees } from '../../../services/api/employee.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Container, Table, Form } from 'react-bootstrap';
 import { ButtonBase } from '@mui/material';
 import Footer from '../../../components/footer/Footer';
 import ReactToPrint from 'react-to-print';
@@ -18,13 +18,14 @@ export default function SuperAdminEmployees() {
     };
 
     const [employees, setEmployees] = useState([]);
-    const [sortedEmployees, setSortedEmployees] = useState([]); // Add sorted employees state
+    const [sortedEmployees, setSortedEmployees] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // New state for search term
 
     const fetchAllEmployees = async () => {
         const response = await getAllEmployees();
         setEmployees(response.data);
-        setSortedEmployees(response.data); // Initialize sorted employees with fetched data
-    }
+        setSortedEmployees(response.data);
+    };
 
     useEffect(() => {
         fetchAllEmployees();
@@ -34,7 +35,7 @@ export default function SuperAdminEmployees() {
 
     const handleClickOpenGet = () => {
         navigate("/superadmin/employees-by-department");
-    }
+    };
 
     const handleViewClick = (id) => {
         console.log('View employee with ID:', id);
@@ -42,17 +43,34 @@ export default function SuperAdminEmployees() {
 
     // Function to sort employees by EPF number
     const handleSortByEPF = () => {
-        const filtered = employees.filter(employee => employee.epf); // Filter out employees without an EPF number
-        const sorted = [...filtered].sort((a, b) => a.epf - b.epf); // Sort by EPF number
-        setSortedEmployees(sorted); // Set the sorted employees
-    }
+        const filtered = employees.filter(employee => employee.epf);
+        const sorted = [...filtered].sort((a, b) => a.epf - b.epf);
+        setSortedEmployees(sorted);
+    };
 
     // Reference for printing
     const componentRef = useRef();
 
     const handleClickOpen = () => {
         navigate("/superadmin/add-employee");
-    }
+    };
+
+    // Function to handle search input
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    // Filter employees based on search term
+    const filteredEmployees = sortedEmployees.filter(employee => {
+        // Ensure employee properties exist before checking
+        return (
+            employee.firstname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.lastname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            employee.epf?.toString().includes(searchTerm) || // Check if EPF is a string
+            employee.mobile?.toString().includes(searchTerm) || // Check if mobile is a string
+            employee.designation?.toLowerCase().includes(searchTerm.toLowerCase()) // check if designation is a string
+        );
+    });
 
     return (
         <div>
@@ -93,16 +111,15 @@ export default function SuperAdminEmployees() {
                         <p style={{ textAlign: 'left' }}>Click on view button to view employee details</p>
                     </div>
                     <div>
-
                         <Button
                             style={{ backgroundColor: 'lightsalmon', border: 'none' }}
-                            onClick={fetchAllEmployees} // Sort employees by EPF when clicked
+                            onClick={fetchAllEmployees} // Sort employees by Emp ID when clicked
                         >
                             Sort by Emp ID
                         </Button>
 
                         <Button
-                            style={{ marginLeft: '10px', backgroundColor: 'lightcoral', border: 'none'}}
+                            style={{ marginLeft: '10px', backgroundColor: 'lightcoral', border: 'none' }}
                             onClick={handleSortByEPF} // Sort employees by EPF when clicked
                         >
                             Sort by EPF No
@@ -136,6 +153,21 @@ export default function SuperAdminEmployees() {
                 </div>
             </Container>
 
+            {/* Search Bar */}
+            <Container fluid>
+                <div className="d-flex justify-content-between align-items-center" style={{ marginLeft: '5%', marginRight: '5%' }}>
+                    <Form.Group className="">
+                        <Form.Control
+                            type="text"
+                            style={{width: '400px'}}
+                            placeholder="Search for an employee . . ."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
+                    </Form.Group>
+                </div>
+            </Container>
+
             <Container>
                 <Table striped bordered hover style={{ marginBottom: '30px', marginTop: '20px' }}>
                     <thead>
@@ -152,7 +184,7 @@ export default function SuperAdminEmployees() {
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedEmployees.map((employee) => (
+                        {filteredEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <td>{employee.id}</td>
                                 <td>{employee.epf}</td>
@@ -187,5 +219,5 @@ export default function SuperAdminEmployees() {
 
             <Footer />
         </div>
-    )
+    );
 }

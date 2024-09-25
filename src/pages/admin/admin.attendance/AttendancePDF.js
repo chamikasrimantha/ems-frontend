@@ -6,7 +6,7 @@ const AttendancePDF = forwardRef(({ attendanceData, calculateTotalHours }, ref) 
         <div ref={ref} style={{ width: '100%', padding: '10px' }}>
             <Container fluid>
                 <h2>Attendance Report</h2>
-                <Table striped bordered hover style={{ marginTop: '20px', width: '100%' }}>
+                <Table bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
                     <thead>
                         <tr>
                             <th>Employee Name</th>

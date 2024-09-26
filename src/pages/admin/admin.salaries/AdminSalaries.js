@@ -124,6 +124,10 @@ export default function AdminSalaries() {
         navigate('/admin/salaries/sheet');
     }
 
+    const gotoSheetEpf = () => {
+        navigate('/admin/salaries/sheet-by-epfNo-order');
+    }
+
     const gotoSlips = () => {
         navigate('/admin/salaries/slips');
     }
@@ -169,6 +173,16 @@ export default function AdminSalaries() {
                                         variant="contained"
                                         color="primary"
                                         onClick={gotoSheet}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '20px' }}>+ Get salary sheet by EPF no order</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSheetEpf}
                                     >
                                         Get
                                     </Button>

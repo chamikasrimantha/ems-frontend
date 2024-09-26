@@ -39,6 +39,8 @@ import SuperAdminProtectedRoutes from './utils/SuperAdminProtectedRoutes';
 import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
 import SuperAdminProfile from './pages/superadmin/superadmin.profile/SuperAdminProfile';
 import AdminProfile from './pages/admin/admin.profile/AdminProfile';
+import AdminSalarySheetByEPFNoOrder from './pages/admin/admin.salaries/AdminSalarySheetByEPFNoOrder';
+import SalarySheetByEPFNoOrder from './pages/superadmin/superadmin.salaries/SalarySheetByEPFNoOrder';
 
 function App() {
   return (
@@ -62,6 +64,7 @@ function App() {
             <Route path='/superadmin/admins/:id' element={<SuperAdminViewAll />} />
             <Route path='/superadmin/salaries' element={<SuperAdminSalaries />} />
             <Route path='/superadmin/salaries/sheet' element={<SalarySheet />} />
+            <Route path='/superadmin/salaries/sheet-by-epfNo-order' element={<SalarySheetByEPFNoOrder />} />
             <Route path='/superadmin/salaries/summary' element={<SalarySummarySheet />} />
             <Route path='/superadmin/salaries/slips' element={<SalarySlips />} />
             <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
@@ -81,6 +84,7 @@ function App() {
             <Route path='/admin/attendance-by-employee' element={<AdminGetAttendancesByEmployee />} />
             <Route path='/admin/salaries' element={<AdminSalaries />} />
             <Route path='/admin/salaries/sheet' element={<AdminSalarySheet />} />
+            <Route path='/admin/salaries/sheet-by-epfNo-order' element={<AdminSalarySheetByEPFNoOrder />} />
             <Route path='/admin/salaries/summary' element={<AdminSalarySummary />} />
             <Route path='/admin/salaries/slips' element={<AdminSalarySlips />} />
             <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />

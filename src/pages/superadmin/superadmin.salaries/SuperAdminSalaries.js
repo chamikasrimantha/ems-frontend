@@ -141,6 +141,10 @@ export default function SuperAdminSalaries() {
         navigate('/superadmin/salaries/sheet');
     }
 
+    const gotoSheetEpf = () => {
+        navigate('/superadmin/salaries/sheet-by-epfNo-order');
+    }
+
     const gotoSlips = () => {
         navigate('/superadmin/salaries/slips');
     }
@@ -187,6 +191,16 @@ export default function SuperAdminSalaries() {
                                         variant="contained"
                                         color="primary"
                                         onClick={gotoSheet}
+                                    >
+                                        Get
+                                    </Button>
+                                </Box>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '20px' }}>+ Get salary sheet by EPF no order</h4>
+                                <Box>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={gotoSheetEpf}
                                     >
                                         Get
                                     </Button>

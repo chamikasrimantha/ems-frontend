@@ -4,15 +4,17 @@ import { getEmployeeById, updateEmployee, deleteEmployee } from '../../../servic
 import { Button, TextField, Container, useMediaQuery, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import SuperAdminNavBar from '../../../components/navbar/SuperAdminNavBar';
 import Footer from '../../../components/footer/Footer';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 import SuperAdminIssueLetter from './SuperAdminIssueLetter';
 import ReactToPrint from 'react-to-print';
+import { getSalariesByEmployee } from '../../../services/api/salary.service';
 
 export default function SuperAdminViewEmployee() {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const [employee, setEmployee] = useState(null);
+    const [salaries, setSalaries] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
 
     const componentRef = useRef();
@@ -42,6 +44,23 @@ export default function SuperAdminViewEmployee() {
     const [departmentId, setDepartmentId] = useState("");
 
     const isMobile = useMediaQuery('(max-width: 600px)');
+
+    const formatNumber = (num) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(num);
+    };
+
+    const fetchSalariesByEmployee = async () => {
+        const response = await getSalariesByEmployee(id);
+        setSalaries(response.data);
+        console.log(response);
+    }
+
+    useEffect(() => {
+        fetchSalariesByEmployee();
+    }, []);
 
     useEffect(() => {
         const fetchEmployee = async () => {
@@ -156,7 +175,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setSurname(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '32%' }}
                                     />
                                     <TextField
                                         label="First Name"
@@ -165,7 +184,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setFirstname(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '32%' }}
                                     />
                                     <TextField
                                         label="Last Name"
@@ -174,7 +193,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setLastname(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '32%' }}
                                     />
                                     <TextField
                                         label="Date of Birth"
@@ -183,7 +202,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setDob(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '30%' }}
                                     />
                                     <TextField
                                         label="Email"
@@ -192,7 +211,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setEmail(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '68%' }}
                                     />
                                     <TextField
                                         label="Age"
@@ -201,7 +220,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setAge(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '30%' }}
                                     />
                                     <TextField
                                         label="NIC"
@@ -210,7 +229,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setNic(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '68%' }}
                                     />
                                     <TextField
                                         label="Address"
@@ -219,7 +238,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setAddress(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px' }}
                                     />
                                     <TextField
                                         label="Epf"
@@ -228,7 +247,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setEpf(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '30%' }}
                                     />
                                     <TextField
                                         label="Wef"
@@ -237,7 +256,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setWef(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '68%' }}
                                     />
                                     <TextField
                                         label="Designation"
@@ -246,7 +265,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setDesignation(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px' }}
                                     />
                                     <FormControl fullWidth margin="dense" variant="outlined">
                                         <InputLabel>Employee type</InputLabel>
@@ -270,7 +289,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setMobile(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '49%' }}
                                     />
                                     <TextField
                                         label="Basic salary"
@@ -279,7 +298,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setBasicSalary(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '49%' }}
                                     />
                                     <TextField
                                         label="Budgetary relief allowance"
@@ -288,7 +307,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setBudgetaryReliefAllowance(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '9px', marginBottom: '20px', width: '33%' }}
                                     />
                                     <TextField
                                         label="Travelling allowance"
@@ -297,7 +316,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setTravellingAllowance(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '9px', marginBottom: '20px', width: '32%' }}
                                     />
                                     <TextField
                                         label="Special allowance"
@@ -306,7 +325,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setSpecialAllowance(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '32%' }}
                                     />
                                     <TextField
                                         label="Bank Name"
@@ -315,7 +334,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setBankname(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginRight: '10px', marginBottom: '20px', width: '60%' }}
                                     />
                                     <TextField
                                         label="Bank Acc No"
@@ -324,7 +343,7 @@ export default function SuperAdminViewEmployee() {
                                         variant="outlined"
                                         onChange={(e) => setBank(e.target.value)}
                                         disabled={!isEditing}
-                                        style={{ marginBottom: '10px' }}
+                                        style={{ marginBottom: '20px', width: '38%' }}
                                     />
                                     {/* Add other fields similarly */}
 
@@ -351,8 +370,8 @@ export default function SuperAdminViewEmployee() {
                                                 trigger={() => (
                                                     <Button
                                                         variant="contained"
-                                                        color="primary"
-                                                        style={{ marginRight: '10px' }}
+
+                                                        style={{ marginRight: '10px', backgroundColor: 'green' }}
                                                     >
                                                         Issue Joining Letter
                                                     </Button>
@@ -370,6 +389,43 @@ export default function SuperAdminViewEmployee() {
                                         </Button>
                                     )}
                                 </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+
+                <Container fluid>
+                    <Row className="justify-content-center">
+                        <Col md={6} className="mb-3" style={{ width: isMobile ? '100%' : '70%' }}>
+                            <div style={squareStyle}>
+                                <h4 style={{ fontWeight: 'bold', fontSize: '1.0rem' }}>{surname} {firstname} {lastname}'s salary list</h4>
+                                <br />
+                                <Table bordered hover style={{ width: '100%', fontSize: '15px', wordWrap: 'break-word' }}>
+                                    <thead>
+                                        <tr>
+                                            <th style={{ textAlign: 'center' }}>Month</th>
+                                            {/* <th style={{ textAlign: 'center' }}>Gross Salary</th>
+                                            <th style={{ textAlign: 'center' }}>Total Deduction</th>
+                                            <th style={{ textAlign: 'center' }}>Special Allowance</th>
+                                            <th style={{ textAlign: 'center' }}>Travelling Allowance</th>
+                                            <th style={{ textAlign: 'center' }}>Service Charges</th> */}
+                                            <th style={{ textAlign: 'center' }}>Salary (Total)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {salaries.map((salary) => (
+                                            <tr key={salary.id}>
+                                                <td>{salary.monthEntity.name}</td>
+                                                {/* <td style={{ textAlign: 'right' }}>{formatNumber(salary.grossSalary)}</td>
+                                                <td style={{ textAlign: 'right' }}>{formatNumber(salary.totalDetuction)}</td>
+                                                <td style={{ textAlign: 'right' }}>{formatNumber(salary.specialAllowance)}</td>
+                                                <td style={{ textAlign: 'right' }}>{formatNumber(salary.travellingAllowance)}</td>
+                                                <td style={{ textAlign: 'right' }}>{formatNumber(salary.serviceCharges)}</td> */}
+                                                <td style={{ textAlign: 'right' }}>{formatNumber(salary.totalSalary)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
                             </div>
                         </Col>
                     </Row>

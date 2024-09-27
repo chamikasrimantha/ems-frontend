@@ -21,7 +21,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
     };
 
     const cellStyle = {
-        padding: '5px',
+        padding: '3px',
         fontFamily: 'Times New Roman, Times, serif', // Add this line
     };
 
@@ -43,7 +43,7 @@ const SlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                         <thead>
                             <tr>
                                 <th colSpan="4" style={{ ...headerStyle, textAlign: 'left' }}>
-                                    Benjarong Pvt Ltd - {departmentName}
+                                    Benjarong Pvt Ltd | {departmentName}
                                 </th>
                             </tr>
                         </thead>

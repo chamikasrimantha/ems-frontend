@@ -13,8 +13,8 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
     const tableStyle = {
         width: '100%',
         height: '30%',
-        marginBottom: '5px',
-        fontSize: '10px',
+        marginBottom: '20px',
+        fontSize: '12px',
         wordWrap: 'break-word',
         fontFamily: 'Times New Roman, Times, serif',
         borderCollapse: 'collapse', // Ensure borders collapse into a single line
@@ -22,7 +22,7 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
     };
 
     const cellStyle = {
-        padding: '5px',
+        padding: '3px',
         fontFamily: 'Times New Roman, Times, serif', // Add this line
     };
 
@@ -50,7 +50,7 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
                         <thead>
                             <tr>
                                 <th colSpan="4" style={{ ...headerStyle, textAlign: 'left' }}>
-                                    Benjarong Pvt Ltd - {departmentName}
+                                    Benjarong Pvt Ltd | {departmentName}
                                 </th>
                             </tr>
                             <tr>
@@ -100,11 +100,11 @@ const AllowanceSlipPrint = forwardRef(({ salaries, departmentName }, ref) => {
 
                             <tr style={{ height: '20px' }}>
                                 <td colSpan="2" style={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}>
-                                    Prepared by: ____________________________________
+                                    Prepared by: _________________________________
                                 </td>
 
                                 <td colSpan="2" style={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}>
-                                    Received by: ____________________________________
+                                    Received by: _________________________________
                                 </td>
                             </tr>
                         </tbody>

@@ -25,6 +25,7 @@ const PrintEmpByEPFNoOrder = React.forwardRef((props, ref) => {
                         <th>Basic</th>
                         <th>Bud. Rel. Allow.</th>
                         <th>Special Allowance</th>
+                        <th>Travelling Allowance</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@ const PrintEmpByEPFNoOrder = React.forwardRef((props, ref) => {
                             <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
                             <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
                             <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
+                            <td style={{ textAlign: 'right' }}>{formatNumber(employee.travellingAllowance)}</td>
                         </tr>
                     ))}
                 </tbody>

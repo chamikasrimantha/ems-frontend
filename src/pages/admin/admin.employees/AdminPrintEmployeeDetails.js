@@ -40,6 +40,7 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
                             <th>Basic Salary</th>
                             <th>Budgetary Relief Allowance</th>
                             <th>Special Allowance</th>
+                            <th>Travelling Allowance</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,7 @@ const AdminPrintEmployeeDetails = forwardRef(({ departments, selectedDepartments
                                     <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
                                     <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
                                     <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
+                                    <td style={{ textAlign: 'right' }}>{formatNumber(employee.travellingAllowance)}</td>
                                 </tr>
                             ))
                         ) : (

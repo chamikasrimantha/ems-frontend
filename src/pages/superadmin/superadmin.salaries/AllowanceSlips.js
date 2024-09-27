@@ -106,11 +106,9 @@ export default function AllowanceSlips() {
         }));
     };
 
-    const handleDateChange = (salaryId, value) => {
-        setDateValue(prevState => ({
-            ...prevState,
-            [salaryId]: value,
-        }));
+    const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
+        setDateValue(selectedDate);  // Set global date value for all salaries
     };
 
     const calculateTotalDeduction = (salary) => {
@@ -176,6 +174,12 @@ export default function AllowanceSlips() {
                                     ))}
                                 </Form.Control>
                                 <Form.Control
+                                    type="date"
+                                    value={dateValue || ''}
+                                    onChange={handleDateChange}
+                                    className="mb-3"
+                                />
+                                <Form.Control
                                     as="select"
                                     value={selectedDepartment}
                                     onChange={handleDepartmentChange}
@@ -239,8 +243,8 @@ export default function AllowanceSlips() {
                                                     <Form.Control
                                                         type="date"
                                                         style={{ height: '30px' }}
-                                                        value={dateValue[salary.id] || ''}
-                                                        onChange={(e) => handleDateChange(salary.id, e.target.value)}
+                                                        value={dateValue || ''}
+                                                        readOnly
                                                     // className="mb-3"
                                                     />
                                                 </td>
@@ -298,7 +302,7 @@ export default function AllowanceSlips() {
                                 <div style={{ display: 'none' }}>
                                     <AllowanceSlipPrint departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} salaries={salaries.map(salary => ({
                                         ...salary,
-                                        dateValue: dateValue[salary.id] || '',
+                                        dateValue: dateValue || '',
                                     }))} ref={printRef} />
                                 </div>
                             </div>

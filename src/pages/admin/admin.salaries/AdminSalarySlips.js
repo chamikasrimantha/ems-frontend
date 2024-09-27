@@ -30,7 +30,7 @@ export default function AdminSalarySlips() {
     const [employees, setEmployees] = useState([]);
     const [employeeType, setEmployeeType] = useState('');
     const [apiitValue, setApiitValue] = useState({});
-    const [dateValue, setDateValue] = useState({});
+    const [dateValue, setDateValue] = useState('');
     const navigate = useNavigate();
 
     const printRef = useRef();
@@ -105,11 +105,9 @@ export default function AdminSalarySlips() {
         }));
     };
 
-    const handleDateChange = (salaryId, value) => {
-        setDateValue(prevState => ({
-            ...prevState,
-            [salaryId]: value,
-        }));
+    const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
+        setDateValue(selectedDate);  // Set global date value for all salaries
     };
 
     const calculateTotalDeduction = (salary) => {
@@ -160,7 +158,7 @@ export default function AdminSalarySlips() {
                         <Col md={6} style={{ width: isMobile ? '100%' : '90%' }}>
                             <div style={squareStyle}>
                                 {/* <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Get Salary Summary Details</h4> */}
-                                <p style={{ fontSize: '1rem' }}>Please select month, department & type and then click on 'Load' button to retrieve salary slips.</p>
+                                <p style={{ fontSize: '1rem' }}>Please select month, date, department & type and then click on 'Load' button to retrieve salary slips.</p>
                                 <Form.Control
                                     as="select"
                                     value={selectedMonth}
@@ -174,6 +172,12 @@ export default function AdminSalarySlips() {
                                         </option>
                                     ))}
                                 </Form.Control>
+                                <Form.Control
+                                    type="date"
+                                    value={dateValue || ''}
+                                    onChange={handleDateChange}
+                                    className="mb-3"
+                                />
                                 <Form.Control
                                     as="select"
                                     value={selectedDepartment}
@@ -233,8 +237,8 @@ export default function AdminSalarySlips() {
                                                     <Form.Control
                                                         type="date"
                                                         style={{ height: '30px' }}
-                                                        value={dateValue[salary.id] || ''}
-                                                        onChange={(e) => handleDateChange(salary.id, e.target.value)}
+                                                        value={dateValue || ''}
+                                                        readOnly
                                                     // className="mb-3"
                                                     />
                                                 </td>
@@ -339,7 +343,7 @@ export default function AdminSalarySlips() {
                                 <div style={{ display: 'none' }}>
                                     <SlipPrint departmentName={departments.find(dept => dept.id === parseInt(selectedDepartment))?.name || ''} salaries={salaries.map(salary => ({
                                         ...salary,
-                                        dateValue: dateValue[salary.id] || '',
+                                        dateValue: dateValue || '',
                                         apiitValue: apiitValue[salary.id] || 0,
                                         totalDeduction: calculateTotalDeduction(salary),
                                         totalAddition: calculateTotalAddition(salary),

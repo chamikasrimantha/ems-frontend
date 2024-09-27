@@ -268,13 +268,13 @@ export default function SalarySlips() {
                                                 <td style={{textAlign: 'right'}}>{formatNumber(salary.doubleOverTime)}</td>
                                             </tr>
                                             <tr>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Salary:</td>
+                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>(A) Total Salary:</td>
                                                 <td style={{textAlign: 'right'}}>{formatNumber(salary.totalForEpf)}</td>
-                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>Total Additions:</td>
+                                                <td style={{ padding: '10px', fontWeight: 'bold' }}>(B) Total Additions:</td>
                                                 <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateTotalAddition(salary))}</td>
                                             </tr>
                                             <tr>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Gross Pay:</td>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>(A+B) Gross Pay:</td>
                                                 <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(salary.grossSalary)}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
@@ -300,6 +300,12 @@ export default function SalarySlips() {
                                                 <td style={{ padding: '10px', fontWeight: '' }}>Loan:</td>
                                                 <td style={{textAlign: 'right'}}>{formatNumber(salary.staffLoan)}</td>
                                             </tr>
+                                            <tr style={{ backgroundColor: '#f2f2f2' }}>
+                                                <td style={{ padding: '10px', fontWeight: '' }}>Cash Float:</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.cashFloat)}</td>
+                                                <td style={{ padding: '10px', fontWeight: '' }}>Staff Debtors:</td>
+                                                <td style={{textAlign: 'right'}}>{formatNumber(salary.staffDebtors)}</td>
+                                            </tr>
                                             {/* <tr>
                                             <td style={{ padding: '10px', fontWeight: '' }}>Stamps:</td>
                                             <td></td>
@@ -307,11 +313,11 @@ export default function SalarySlips() {
                                             <td></td>
                                         </tr> */}
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Total Deduction:</td>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>(C) Total Deduction:</td>
                                                 <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateTotalDeduction(salary))}</td>
                                             </tr>
                                             <tr style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>Net Salary:</td>
+                                                <td colSpan="2" style={{ padding: '10px', fontWeight: 'bold' }}>(A+B-C) Net Salary:</td>
                                                 <td colSpan="2" style={{textAlign: 'right'}}>{formatNumber(calculateNetSalary(salary))}</td>
                                             </tr>
                                             <tr style={{ height: '20px' }}>

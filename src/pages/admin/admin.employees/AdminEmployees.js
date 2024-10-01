@@ -158,9 +158,10 @@ export default function AdminEmployees() {
                             <th>Name</th>
                             <th>Designation</th>
                             <th>Phone No</th>
-                            <th>Basic</th>
+                            <th>Basic Sal.</th>
                             <th>Bud. Rel. Allow.</th>
-                            <th>Special Allowance</th>
+                            <th>Special Allow.</th>
+                            <th>Travelling Allow.</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -175,6 +176,7 @@ export default function AdminEmployees() {
                                 <td style={{ textAlign: 'right' }}>{formatNumber(employee.basicSalary)}</td>
                                 <td style={{ textAlign: 'right' }}>{formatNumber(employee.budgetaryReliefAllowance)}</td>
                                 <td style={{ textAlign: 'right' }}>{formatNumber(employee.specialAllowance)}</td>
+                                <td style={{ textAlign: 'right' }}>{formatNumber(employee.travellingAllowance)}</td>
                                 <td>
                                     <Link to={`/admin/employees/${employee.id}`} style={{ textDecoration: 'none' }}>
                                         <Button

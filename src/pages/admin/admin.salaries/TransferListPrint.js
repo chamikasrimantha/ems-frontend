@@ -24,7 +24,7 @@ const TransferListPrint = React.forwardRef(({ salaries, monthName, departmentNam
         <div ref={ref} style={{ width: '100%', padding: '10px' }}>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd</h4>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary transfer sheet {monthName}</h4>
-            <Table bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
+            <Table bordered hover size="sm" style={{ borderCollapse: 'collapse', border: '1px solid #000', width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
                 <thead>
                     <tr>
                         <th>Employee ID</th>

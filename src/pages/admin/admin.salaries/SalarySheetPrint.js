@@ -54,11 +54,14 @@ const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName
         totalSalary: 0,
     });
 
+    // borderCollapse: 'collapse',
+    //     border: '1px solid #000',
+
     return (
         <div ref={ref} style={{ width: '100%', padding: '10px' }}>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>Benjarong Pvt Ltd</h4>
             <h4 style={{ fontWeight: 'bold', fontSize: '1.25rem', textAlign: 'left' }}>{departmentName} - Salary Sheet {monthName} | {type} Staff</h4>
-            <Table bordered hover size="sm" style={{ width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
+            <Table bordered hover size="sm" style={{ borderCollapse: 'collapse', border: '1px solid #000', width: '100%', fontSize: '12px', wordWrap: 'break-word' }}>
                 <thead>
                     <tr>
                         <th>Employee ID</th>
@@ -82,8 +85,6 @@ const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName
                         <th>12% EPF</th>
                         <th>3% ETF</th>
                         <th>20% EPF</th>
-                        <th>50% on Basic</th>
-                        <th>Total Salary</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,8 +111,6 @@ const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName
                             <td>{formatNumber(salary.twelvePresentEpf)}</td>
                             <td>{formatNumber(salary.threePresentEtf)}</td>
                             <td>{formatNumber(salary.twentyPresentEpf)}</td>
-                            <td>{formatNumber(salary.fiftyPresentOnBasic)}</td>
-                            <td>{formatNumber(salary.totalSalary)}</td>
                         </tr>
                     ))}
                     {/* Total row */}
@@ -134,8 +133,6 @@ const SalarySheetPrint = React.forwardRef(({ salaries, monthName, departmentName
                         <td>{formatNumber(totals.twelvePresentEpf)}</td>
                         <td>{formatNumber(totals.threePresentEtf)}</td>
                         <td>{formatNumber(totals.twentyPresentEpf)}</td>
-                        <td>{formatNumber(totals.fiftyPresentOnBasic)}</td>
-                        <td>{formatNumber(totals.totalSalary)}</td>
                     </tr>
                 </tbody>
             </Table>

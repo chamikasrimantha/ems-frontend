@@ -24,7 +24,7 @@ export default function AdminNavBar() {
     }
 
     const analysis = () => {
-        navigate('/admin/analysis');
+        navigate('/admin/more');
     }
 
     // const months = () => {
@@ -65,7 +65,7 @@ export default function AdminNavBar() {
                         {/* <Nav.Link href="" onClick={months} style={{ color: 'white', marginRight: '30px' }}>Months</Nav.Link> */}
                         <Nav.Link href="" onClick={attendance} style={{ color: 'white', marginRight: '30px' }}>Attendance</Nav.Link>
                         <Nav.Link href="" onClick={salaries} style={{ color: 'white', marginRight: '30px' }}>Salaries</Nav.Link>
-                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>Analysis</Nav.Link>
+                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>More</Nav.Link>
                     </Nav>
                     <Nav>
                         {isSignedIn ? (

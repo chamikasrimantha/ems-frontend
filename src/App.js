@@ -69,7 +69,7 @@ function App() {
             <Route path='/superadmin/salaries/slips' element={<SalarySlips />} />
             <Route path='/superadmin/salaries/allowances' element={<AllowanceSlips />} />
             <Route path='/superadmin/salaries/transfers' element={<SalaryTransferList />} />
-            <Route path='/superadmin/analysis' element={<SuperAdminAnalysis />} />
+            <Route path='/superadmin/more' element={<SuperAdminAnalysis />} />
             <Route path='/superadmin/profile' element={<SuperAdminProfile />} />
           </Route>
 
@@ -90,7 +90,7 @@ function App() {
             <Route path='/admin/salaries/allowances' element={<AdminAllowanceSlips />} />
             <Route path='/admin/salaries/transfers' element={<AdminSalaryTransferList />} />
             <Route path='/admin/create-salary' element={<AdminAddSalary />} />
-            <Route path='/admin/analysis' element={<AdminAnalysis />} />
+            <Route path='/admin/more' element={<AdminAnalysis />} />
             <Route path='/admin/profile' element={<AdminProfile />} />
           </Route>
 

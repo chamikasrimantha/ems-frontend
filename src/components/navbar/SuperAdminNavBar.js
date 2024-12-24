@@ -32,7 +32,7 @@ export default function SuperAdminNavBar() {
     // }
 
     const analysis = () => {
-        navigate('/superadmin/analysis');
+        navigate('/superadmin/more');
     }
 
     const logout = () => {
@@ -70,7 +70,7 @@ export default function SuperAdminNavBar() {
                         <Nav.Link href="" onClick={employees} style={{ color: 'white', marginRight: '30px' }}>Employees</Nav.Link>
                         <Nav.Link href="" onClick={salaries} style={{ color: 'white', marginRight: '30px' }}>Salaries</Nav.Link>
                         <Nav.Link href="" onClick={admins} style={{ color: 'white', marginRight: '30px' }}>Admins</Nav.Link>
-                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>Analysis</Nav.Link>
+                        <Nav.Link href="" onClick={analysis} style={{ color: 'white', marginRight: '30px' }}>More</Nav.Link>
                     </Nav>
                     <Nav>
                         {isSignedIn ? (

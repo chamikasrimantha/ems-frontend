@@ -163,7 +163,7 @@ export default function AdminAddSalary() {
                     lastname: employee.lastname,
                     travellingAllow: employee.travellingAllowance,
                     specialAllow: employee.specialAllowance,
-                    basicSalary: basicSalary,
+                    basicSalary: basicSalary.toFixed(2),
                     budgetaryReliefAllowance: budgetaryReliefAllowance.toFixed(2),
                     noPay: noPay.toFixed(2),
                     noOfDays: noOfDays.toFixed(2),

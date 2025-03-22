@@ -355,147 +355,155 @@ export default function AdminAddSalary() {
 
                                     <Button style={{ backgroundColor: 'lightblue', marginRight: '10px' }} variant="secondary" className="mt-3" onClick={handleCalculateSalaries}>Generate Salaries</Button>
 
+                                    <br /><br/>
                                     {salaryDetails.length > 0 && (
-                                        <Table striped bordered hover responsive className="mt-3">
-                                            <thead>
-                                                <tr>
-                                                    <th>Employee ID</th>
-                                                    <th>Name</th>
-                                                    <th>Basic Salary</th>
-                                                    <th>Budgetary Relief Allowance</th>
-                                                    <th>No Pay Days</th>
-                                                    <th>No Pay</th>
-                                                    <th>Leave Days</th>
-                                                    <th>No Of Days</th>
-                                                    <th>Gross Salary</th>
-                                                    <th>Total for EPF</th>
-                                                    <th>Normal OT Hours</th>
-                                                    <th>Normal OT Cash</th>
-                                                    <th>Double OT</th>
-                                                    <th>8% EPF</th>
-                                                    <th>Cash Float</th>
-                                                    <th>Staff Loan</th>
-                                                    <th>Staff Debtors</th>
-                                                    <th>Salary Advance</th>
-                                                    <th>Total Deduction</th>
-                                                    <th>Balance Pay</th>
-                                                    <th>12% EPF</th>
-                                                    <th>3% ETF</th>
-                                                    <th>20% EPF</th>
-                                                    <th>S/C %</th>
-                                                    <th>Travelling Allowance</th>
-                                                    <th>Special Allowance</th>
-                                                    <th>Service Charges</th>
-                                                    <th>Total Salary</th>
-                                                    <th>#</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {salaryDetails.map((details, index) => (
-                                                    <tr key={index}>
-                                                        <td>{details.employeeId}</td>
-                                                        <td>{details.firstname} {details.lastname}</td>
-                                                        <td>{parseFloat(details.basicSalary).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.budgetaryReliefAllowance).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.noPayDays).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'noPayDays', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.noPay).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.leaveDays).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'leaveDays', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.noOfDays).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.grossSalary).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.totalForEpf).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.normalOverTime).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'normalOverTime', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.normalOverTimeCash).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.doubleOverTime).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'doubleOverTime', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.eightPresentEpf).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.cashFloat).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'cashFloat', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.staffLoan).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'staffLoan', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.staffDebtors).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'staffDebtors', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.salaryAdvance).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'salaryAdvance', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.totalDetuction).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.balancePay).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.twelvePresentEpf).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.threePresentEtf).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.twentyPresentEpf).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.sc).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'sc', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.travellingAllowance).toFixed(2)}</td>
-                                                        <td>{parseFloat(details.specialAllowance).toFixed(2)}</td>
-                                                        <td>
-                                                            <Form.Control
-                                                                type="number"
-                                                                value={parseFloat(details.serviceCharges).toFixed(2)}
-                                                                style={{ width: '100px' }}
-                                                                onChange={(e) => handleInputChange(index, 'serviceCharges', e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>{parseFloat(details.totalSalary).toFixed(2)}</td>
-                                                        <td><Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={() => addSalary(index)}>Save</Button></td>
+                                        <div style={{
+                                            border: "1px solid #ddd",
+                                            borderRadius: "4px",
+                                            position: "relative",
+                                            overflow: "auto", // Allows both horizontal and vertical scrolling
+                                            maxHeight: "450px" // Restricts vertical height
+                                        }}>
+                                            <Table striped bordered hover className="mb-0" style={{ minWidth: "1500px" }}>
+                                                <thead style={{ position: "sticky", top: 0, backgroundColor: "#fff", zIndex: 2 }}>
+                                                    <tr>
+                                                        <th style={{ minWidth: "120px" }}>Employee ID</th>
+                                                        <th style={{ minWidth: "150px" }}>Name</th>
+                                                        <th style={{ minWidth: "120px" }}>Basic Salary</th>
+                                                        <th style={{ minWidth: "180px" }}>Budgetary Relief Allowance</th>
+                                                        <th style={{ minWidth: "120px" }}>No Pay Days</th>
+                                                        <th style={{ minWidth: "120px" }}>No Pay</th>
+                                                        <th style={{ minWidth: "120px" }}>Leave Days</th>
+                                                        <th style={{ minWidth: "120px" }}>No Of Days</th>
+                                                        <th style={{ minWidth: "120px" }}>Gross Salary</th>
+                                                        <th style={{ minWidth: "120px" }}>Total for EPF</th>
+                                                        <th style={{ minWidth: "140px" }}>Normal OT Hours</th>
+                                                        <th style={{ minWidth: "140px" }}>Normal OT Cash</th>
+                                                        <th style={{ minWidth: "120px" }}>Double OT</th>
+                                                        <th style={{ minWidth: "120px" }}>8% EPF</th>
+                                                        <th style={{ minWidth: "120px" }}>Cash Float</th>
+                                                        <th style={{ minWidth: "120px" }}>Staff Loan</th>
+                                                        <th style={{ minWidth: "120px" }}>Staff Debtors</th>
+                                                        <th style={{ minWidth: "140px" }}>Salary Advance</th>
+                                                        <th style={{ minWidth: "140px" }}>Total Deduction</th>
+                                                        <th style={{ minWidth: "120px" }}>Balance Pay</th>
+                                                        <th style={{ minWidth: "120px" }}>12% EPF</th>
+                                                        <th style={{ minWidth: "120px" }}>3% ETF</th>
+                                                        <th style={{ minWidth: "120px" }}>20% EPF</th>
+                                                        <th style={{ minWidth: "120px" }}>S/C %</th>
+                                                        <th style={{ minWidth: "170px" }}>Travelling Allowance</th>
+                                                        <th style={{ minWidth: "160px" }}>Special Allowance</th>
+                                                        <th style={{ minWidth: "150px" }}>Service Charges</th>
+                                                        <th style={{ minWidth: "120px" }}>Total Salary</th>
+                                                        <th style={{ minWidth: "100px" }}>#</th>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </Table>
+                                                </thead>
+                                                <tbody>
+                                                    {salaryDetails.map((details, index) => (
+                                                        <tr key={index}>
+                                                            <td style={{ minWidth: "120px" }}>{details.employeeId}</td>
+                                                            <td style={{ minWidth: "150px" }}>{details.firstname} {details.lastname}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.basicSalary).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "180px" }}>{parseFloat(details.budgetaryReliefAllowance).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.noPayDays).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'noPayDays', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.noPay).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.leaveDays).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'leaveDays', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.noOfDays).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.grossSalary).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.totalForEpf).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.normalOverTime).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'normalOverTime', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "140px" }}>{parseFloat(details.normalOverTimeCash).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "140px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.doubleOverTime).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'doubleOverTime', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.eightPresentEpf).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.cashFloat).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'cashFloat', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.staffLoan).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'staffLoan', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.staffDebtors).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'staffDebtors', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "140px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.salaryAdvance).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'salaryAdvance', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "140px" }}>{parseFloat(details.totalDetuction).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.balancePay).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.twelvePresentEpf).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.threePresentEtf).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.twentyPresentEpf).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "120px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.sc).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'sc', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "170px" }}>{parseFloat(details.travellingAllowance).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "160px" }}>{parseFloat(details.specialAllowance).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "150px" }}>
+                                                                <Form.Control
+                                                                    type="number"
+                                                                    value={parseFloat(details.serviceCharges).toFixed(2)}
+                                                                    style={{ width: '100px' }}
+                                                                    onChange={(e) => handleInputChange(index, 'serviceCharges', e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td style={{ minWidth: "120px" }}>{parseFloat(details.totalSalary).toFixed(2)}</td>
+                                                            <td style={{ minWidth: "100px" }}><Button style={{ backgroundColor: 'lightgreen' }} variant="primary" className="mt-3" onClick={() => addSalary(index)}>Save</Button></td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </Table></div>
                                     )}
 
 
